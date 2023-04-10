@@ -1,12 +1,18 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * @author Shuwen Ju
  */
 @Entity
 @Table(name = "following", schema = "mydb", catalog = "")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class FollowingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,29 +31,6 @@ public class FollowingEntity {
     @JoinColumn(name = "follower_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByFollowerId;
 
-    public int getRelationId() {
-        return relationId;
-    }
-
-    public void setRelationId(int relationId) {
-        this.relationId = relationId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getFollowerId() {
-        return followerId;
-    }
-
-    public void setFollowerId(int followerId) {
-        this.followerId = followerId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,21 +52,5 @@ public class FollowingEntity {
         result = 31 * result + userId;
         result = 31 * result + followerId;
         return result;
-    }
-
-    public UserEntity getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(UserEntity userByUserId) {
-        this.userByUserId = userByUserId;
-    }
-
-    public UserEntity getUserByFollowerId() {
-        return userByFollowerId;
-    }
-
-    public void setUserByFollowerId(UserEntity userByFollowerId) {
-        this.userByFollowerId = userByFollowerId;
     }
 }

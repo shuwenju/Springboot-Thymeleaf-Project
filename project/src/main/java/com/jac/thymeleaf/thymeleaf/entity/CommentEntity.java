@@ -1,6 +1,7 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Collection;
 
@@ -9,6 +10,11 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "comment", schema = "mydb", catalog = "")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -22,22 +28,6 @@ public class CommentEntity {
     private PostEntity postByPostPostId;
     @OneToMany(mappedBy = "commentByCommentCommentId")
     private Collection<LikeCommentEntity> likeCommentsByCommentId;
-
-    public int getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(int commentId) {
-        this.commentId = commentId;
-    }
-
-    public int getPostPostId() {
-        return postPostId;
-    }
-
-    public void setPostPostId(int postPostId) {
-        this.postPostId = postPostId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -59,19 +49,4 @@ public class CommentEntity {
         return result;
     }
 
-    public PostEntity getPostByPostPostId() {
-        return postByPostPostId;
-    }
-
-    public void setPostByPostPostId(PostEntity postByPostPostId) {
-        this.postByPostPostId = postByPostPostId;
-    }
-
-    public Collection<LikeCommentEntity> getLikeCommentsByCommentId() {
-        return likeCommentsByCommentId;
-    }
-
-    public void setLikeCommentsByCommentId(Collection<LikeCommentEntity> likeCommentsByCommentId) {
-        this.likeCommentsByCommentId = likeCommentsByCommentId;
-    }
 }

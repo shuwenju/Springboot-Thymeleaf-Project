@@ -1,6 +1,7 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.Collection;
@@ -10,11 +11,16 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "user", schema = "mydb", catalog = "")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Long userId;
     @Basic
     @Column(name = "username", nullable = false, length = 50)
     private String username;
@@ -51,69 +57,7 @@ public class UserEntity {
     @OneToMany(mappedBy = "userByUserUserId")
     private Collection<PostEntity> postsByUserId;
 
-    public int getUserId() {
-        return userId;
-    }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getJoinedSince() {
-        return joinedSince;
-    }
-
-    public void setJoinedSince(Date joinedSince) {
-        this.joinedSince = joinedSince;
-    }
-
-    public String getProfilePic() {
-        return profilePic;
-    }
-
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -136,7 +80,7 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = userId;
+        int result = userId.intValue();
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
@@ -147,59 +91,4 @@ public class UserEntity {
         return result;
     }
 
-    public Collection<FollowerEntity> getFollowersByUserId() {
-        return followersByUserId;
-    }
-
-    public void setFollowersByUserId(Collection<FollowerEntity> followersByUserId) {
-        this.followersByUserId = followersByUserId;
-    }
-
-    public Collection<FollowerEntity> getFollowersByUserId_0() {
-        return followersByUserId_0;
-    }
-
-    public void setFollowersByUserId_0(Collection<FollowerEntity> followersByUserId_0) {
-        this.followersByUserId_0 = followersByUserId_0;
-    }
-
-    public Collection<FollowingEntity> getFollowingsByUserId() {
-        return followingsByUserId;
-    }
-
-    public void setFollowingsByUserId(Collection<FollowingEntity> followingsByUserId) {
-        this.followingsByUserId = followingsByUserId;
-    }
-
-    public Collection<FollowingEntity> getFollowingsByUserId_0() {
-        return followingsByUserId_0;
-    }
-
-    public void setFollowingsByUserId_0(Collection<FollowingEntity> followingsByUserId_0) {
-        this.followingsByUserId_0 = followingsByUserId_0;
-    }
-
-    public Collection<LikeCommentEntity> getLikeCommentsByUserId() {
-        return likeCommentsByUserId;
-    }
-
-    public void setLikeCommentsByUserId(Collection<LikeCommentEntity> likeCommentsByUserId) {
-        this.likeCommentsByUserId = likeCommentsByUserId;
-    }
-
-    public Collection<LikePostEntity> getLikePostsByUserId() {
-        return likePostsByUserId;
-    }
-
-    public void setLikePostsByUserId(Collection<LikePostEntity> likePostsByUserId) {
-        this.likePostsByUserId = likePostsByUserId;
-    }
-
-    public Collection<PostEntity> getPostsByUserId() {
-        return postsByUserId;
-    }
-
-    public void setPostsByUserId(Collection<PostEntity> postsByUserId) {
-        this.postsByUserId = postsByUserId;
-    }
 }

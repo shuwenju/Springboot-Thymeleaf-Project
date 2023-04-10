@@ -1,12 +1,18 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * @author Shuwen Ju
  */
 @Entity
 @Table(name = "like_post", schema = "mydb", catalog = "")
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class LikePostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,29 +31,6 @@ public class LikePostEntity {
     @JoinColumn(name = "post_post_id", referencedColumnName = "post_id", nullable = false)
     private PostEntity postByPostPostId;
 
-    public int getLikeId() {
-        return likeId;
-    }
-
-    public void setLikeId(int likeId) {
-        this.likeId = likeId;
-    }
-
-    public int getUserUserId() {
-        return userUserId;
-    }
-
-    public void setUserUserId(int userUserId) {
-        this.userUserId = userUserId;
-    }
-
-    public int getPostPostId() {
-        return postPostId;
-    }
-
-    public void setPostPostId(int postPostId) {
-        this.postPostId = postPostId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,19 +54,4 @@ public class LikePostEntity {
         return result;
     }
 
-    public UserEntity getUserByUserUserId() {
-        return userByUserUserId;
-    }
-
-    public void setUserByUserUserId(UserEntity userByUserUserId) {
-        this.userByUserUserId = userByUserUserId;
-    }
-
-    public PostEntity getPostByPostPostId() {
-        return postByPostPostId;
-    }
-
-    public void setPostByPostPostId(PostEntity postByPostPostId) {
-        this.postByPostPostId = postByPostPostId;
-    }
 }

@@ -1,6 +1,7 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -10,6 +11,11 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "post", schema = "mydb", catalog = "")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -32,37 +38,6 @@ public class PostEntity {
     @JoinColumn(name = "user_user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByUserUserId;
 
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public int getUserUserId() {
-        return userUserId;
-    }
-
-    public void setUserUserId(int userUserId) {
-        this.userUserId = userUserId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -88,27 +63,4 @@ public class PostEntity {
         return result;
     }
 
-    public Collection<CommentEntity> getCommentsByPostId() {
-        return commentsByPostId;
-    }
-
-    public void setCommentsByPostId(Collection<CommentEntity> commentsByPostId) {
-        this.commentsByPostId = commentsByPostId;
-    }
-
-    public Collection<LikePostEntity> getLikePostsByPostId() {
-        return likePostsByPostId;
-    }
-
-    public void setLikePostsByPostId(Collection<LikePostEntity> likePostsByPostId) {
-        this.likePostsByPostId = likePostsByPostId;
-    }
-
-    public UserEntity getUserByUserUserId() {
-        return userByUserUserId;
-    }
-
-    public void setUserByUserUserId(UserEntity userByUserUserId) {
-        this.userByUserUserId = userByUserUserId;
-    }
 }

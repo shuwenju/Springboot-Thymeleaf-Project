@@ -1,12 +1,18 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 /**
  * @author Shuwen Ju
  */
 @Entity
 @Table(name = "like_comment", schema = "mydb", catalog = "")
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LikeCommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,29 +31,6 @@ public class LikeCommentEntity {
     @JoinColumn(name = "user_user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByUserUserId;
 
-    public int getLikeId() {
-        return likeId;
-    }
-
-    public void setLikeId(int likeId) {
-        this.likeId = likeId;
-    }
-
-    public int getCommentCommentId() {
-        return commentCommentId;
-    }
-
-    public void setCommentCommentId(int commentCommentId) {
-        this.commentCommentId = commentCommentId;
-    }
-
-    public int getUserUserId() {
-        return userUserId;
-    }
-
-    public void setUserUserId(int userUserId) {
-        this.userUserId = userUserId;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -71,19 +54,4 @@ public class LikeCommentEntity {
         return result;
     }
 
-    public CommentEntity getCommentByCommentCommentId() {
-        return commentByCommentCommentId;
-    }
-
-    public void setCommentByCommentCommentId(CommentEntity commentByCommentCommentId) {
-        this.commentByCommentCommentId = commentByCommentCommentId;
-    }
-
-    public UserEntity getUserByUserUserId() {
-        return userByUserUserId;
-    }
-
-    public void setUserByUserUserId(UserEntity userByUserUserId) {
-        this.userByUserUserId = userByUserUserId;
-    }
 }
