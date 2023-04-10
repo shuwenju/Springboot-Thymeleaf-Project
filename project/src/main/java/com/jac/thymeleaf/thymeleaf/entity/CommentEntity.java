@@ -19,10 +19,10 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "comment_id", nullable = false)
-    private int commentId;
+    private Long commentId;
     @Basic
     @Column(name = "post_post_id", nullable = false)
-    private int postPostId;
+    private Long postPostId;
     @ManyToOne
     @JoinColumn(name = "post_post_id", referencedColumnName = "post_id", nullable = false)
     private PostEntity postByPostPostId;
@@ -44,8 +44,8 @@ public class CommentEntity {
 
     @Override
     public int hashCode() {
-        int result = commentId;
-        result = 31 * result + postPostId;
+        int result = commentId.intValue();
+        result = 31 * result + postPostId.intValue();
         return result;
     }
 

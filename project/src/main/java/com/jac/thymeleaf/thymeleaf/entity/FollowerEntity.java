@@ -17,13 +17,13 @@ public class FollowerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "relation_id", nullable = false)
-    private int relationId;
+    private Long relationId;
     @Basic
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Long userId;
     @Basic
     @Column(name = "friend_id", nullable = false)
-    private int friendId;
+    private Long friendId;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByUserId;
@@ -49,9 +49,9 @@ public class FollowerEntity {
 
     @Override
     public int hashCode() {
-        int result = relationId;
-        result = 31 * result + userId;
-        result = 31 * result + friendId;
+        int result = relationId.intValue();
+        result = 31 * result + userId.intValue();
+        result = 31 * result + friendId.intValue();
         return result;
     }
 

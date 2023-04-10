@@ -17,13 +17,13 @@ public class LikePostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "like_id", nullable = false)
-    private int likeId;
+    private Long likeId;
     @Basic
     @Column(name = "user_user_id", nullable = false)
-    private int userUserId;
+    private Long userUserId;
     @Basic
     @Column(name = "post_post_id", nullable = false)
-    private int postPostId;
+    private Long postPostId;
     @ManyToOne
     @JoinColumn(name = "user_user_id", referencedColumnName = "user_id", nullable = false)
     private UserEntity userByUserUserId;
@@ -48,9 +48,9 @@ public class LikePostEntity {
 
     @Override
     public int hashCode() {
-        int result = likeId;
-        result = 31 * result + userUserId;
-        result = 31 * result + postPostId;
+        int result = likeId.intValue();
+        result = 31 * result + userUserId.intValue();
+        result = 31 * result + postPostId.intValue();
         return result;
     }
 

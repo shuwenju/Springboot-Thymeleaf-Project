@@ -20,7 +20,7 @@ public class PostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "post_id", nullable = false)
-    private int postId;
+    private Long postId;
     @Basic
     @Column(name = "content", nullable = false, length = -1)
     private String content;
@@ -29,7 +29,7 @@ public class PostEntity {
     private Timestamp timestamp;
     @Basic
     @Column(name = "user_user_id", nullable = false)
-    private int userUserId;
+    private Long userUserId;
     @OneToMany(mappedBy = "postByPostPostId")
     private Collection<CommentEntity> commentsByPostId;
     @OneToMany(mappedBy = "postByPostPostId")
@@ -56,10 +56,10 @@ public class PostEntity {
 
     @Override
     public int hashCode() {
-        int result = postId;
+        int result = postId.intValue();
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
-        result = 31 * result + userUserId;
+        result = 31 * result + userUserId.intValue();
         return result;
     }
 

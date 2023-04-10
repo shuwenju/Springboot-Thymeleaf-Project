@@ -17,13 +17,13 @@ public class LikeCommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "like_id", nullable = false)
-    private int likeId;
+    private Long likeId;
     @Basic
     @Column(name = "comment_comment_id", nullable = false)
-    private int commentCommentId;
+    private Long commentCommentId;
     @Basic
     @Column(name = "user_user_id", nullable = false)
-    private int userUserId;
+    private Long userUserId;
     @ManyToOne
     @JoinColumn(name = "comment_comment_id", referencedColumnName = "comment_id", nullable = false)
     private CommentEntity commentByCommentCommentId;
@@ -48,9 +48,9 @@ public class LikeCommentEntity {
 
     @Override
     public int hashCode() {
-        int result = likeId;
-        result = 31 * result + commentCommentId;
-        result = 31 * result + userUserId;
+        int result = likeId.intValue();
+        result = 31 * result + commentCommentId.intValue();
+        result = 31 * result + userUserId.intValue();
         return result;
     }
 
