@@ -23,6 +23,11 @@ public class CommentEntity {
     @Basic
     @Column(name = "post_post_id", nullable = false)
     private Long postPostId;
+
+    @Basic
+    @Column(name = "content", nullable = false, length = 255)
+    private String content;
+
     @ManyToOne
     @JoinColumn(name = "post_post_id", referencedColumnName = "post_id", nullable = false)
     private PostEntity postByPostPostId;
