@@ -1,57 +1,33 @@
 package com.jac.thymeleaf.thymeleaf.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Collection;
+import java.time.LocalDateTime;
 
-/**
- * @author Shuwen Ju
- */
 @Entity
-@Table(name = "comment", schema = "mydb", catalog = "")
-@Setter
-@Getter
-@AllArgsConstructor
+@Table(name = "comments")
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class CommentEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "comment_id", nullable = false)
-    private Long commentId;
-    @Basic
-    @Column(name = "post_post_id", nullable = false)
-    private Long postPostId;
-
-    @Basic
-    @Column(name = "content", nullable = false, length = 255)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String content;
+    private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "post_post_id", referencedColumnName = "post_id", nullable = false)
-    private PostEntity postByPostPostId;
-    @OneToMany(mappedBy = "commentByCommentCommentId")
-    private Collection<LikeCommentEntity> likeCommentsByCommentId;
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private PostEntity post;
 
-        CommentEntity that = (CommentEntity) o;
-
-        if (commentId != that.commentId) return false;
-        if (postPostId != that.postPostId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = commentId.intValue();
-        result = 31 * result + postPostId.intValue();
-        return result;
-    }
 
 }
