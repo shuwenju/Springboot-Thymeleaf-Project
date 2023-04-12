@@ -5,6 +5,7 @@ body {
 main {
   padding: 0;
   height: 100vh;
+  min-width: 100vw;
 }
 
 #left-side {
@@ -16,9 +17,11 @@ main {
   align-items: center;
   justify-content: center;
 }
-#login-form {
+
+#form-container-login {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   backdrop-filter: blur(16px) saturate(180%);
   background: rgba(255, 255, 255, 1);
   border-radius: 16px;
@@ -26,4 +29,42 @@ main {
   backdrop-filter: blur(0px);
   -webkit-backdrop-filter: blur(0px);
   padding: 2rem;
+  margin: 5rem;
+}
+
+.button-changes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+.disable-link {
+  pointer-events: none;
+  color: grey;
+  text-decoration: none;
+  opacity: 0.3;
+}
+
+.disable-section {
+  display: none !important;
+}
+
+#form-container-register {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(16px) saturate(180%);
+  background: rgba(255, 255, 255, 1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  padding: 2rem;
+  margin: 5rem;
 }

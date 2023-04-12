@@ -23,12 +23,17 @@
         <img
           src="/SpringbootThymeleafProject/project/src/main/resources/static/pexels-jaime-reimer-2662116.jpg"
           alt="main-image"
+          width="100%"
+          height="100%"
         />
       </section>
       <section class="container col-4" id="right-side">
-        <div class="container">
+        <div class="container" id="form-container-login">
+          <div class="form-header d-flex justify-content-center m-3">
+            <h2>Login</h2>
+          </div>
           <form action="" method="post" id="login-form">
-            <div class="form-floating">
+            <div class="form-floating m-2">
               <input
                 type="text"
                 name="username"
@@ -38,7 +43,7 @@
               />
               <label for="username">Username</label>
             </div>
-            <div class="form-floating">
+            <div class="form-floating m-2">
               <input
                 type="password"
                 name="password"
@@ -48,7 +53,99 @@
               />
               <label for="password">Password</label>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <div class="row d-flex justify-content-center p-3">
+              <button type="submit" class="btn-lg btn-primary shadow-none">
+                Login
+              </button>
+            </div>
+            <div class="button-changes">
+              <a
+                class="disable-link"
+                href="#"
+                onclick="toggleForms()"
+                id="login-button"
+                >Login</a
+              >
+              <small>|</small>
+              <a class="" href="#" onclick="toggleForms()" id="register-button"
+                >Register</a
+              >
+            </div>
+          </form>
+        </div>
+        <div class="container disable-section" id="form-container-register">
+          <div class="form-header d-flex justify-content-center m-3">
+            <h2>Register</h2>
+          </div>
+          <form action="" method="post" id="register-form">
+            <div class="form-floating m-2">
+              <input
+                type="text"
+                name="username"
+                class="form-control"
+                id="register-username"
+                placeholder=""
+              />
+              <label for="register-username">Username</label>
+            </div>
+            <div class="form-floating m-2">
+              <input
+                type="text"
+                name="email"
+                class="form-control"
+                id="register-email"
+                placeholder=""
+              />
+              <label for="register-email">Email</label>
+            </div>
+            <div class="form-floating m-2">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="register-password"
+                placeholder=""
+              />
+              <label for="register-password">Password</label>
+            </div>
+            <div class="form-floating m-2">
+              <input
+                type="text"
+                name="firstName"
+                class="form-control"
+                id="register-firstName"
+                placeholder=""
+              />
+              <label for="register-firstName">First Name</label>
+            </div>
+            <div class="form-floating m-2">
+              <input
+                type="text"
+                name="lastName"
+                class="form-control"
+                id="register-lastName"
+                placeholder=""
+              />
+              <label for="register-lastName">Last Name</label>
+            </div>
+            <div class="row d-flex justify-content-center p-3">
+              <button type="submit" class="btn-lg btn-primary shadow-none">
+                Register
+              </button>
+            </div>
+            <div class="button-changes">
+              <a class="" href="#" onclick="toggleForms()" id="login-button">
+                Login
+              </a>
+              <small>|</small>
+              <a
+                class="disable-link"
+                href="#"
+                onclick="toggleForms()"
+                id="register-button"
+                >Register</a
+              >
+            </div>
           </form>
         </div>
       </section>
@@ -63,6 +160,10 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
+    ></script>
+    <script
+      src="/SpringbootThymeleafProject/project/src/main/resources/templates/js/main.js"
+      defer
     ></script>
   </body>
 </html>
