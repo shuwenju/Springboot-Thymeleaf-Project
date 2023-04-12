@@ -26,11 +26,11 @@ public class UserEntity {
     private String lastName;
     private String profilePicture;
 
-    @OneToMany(mappedBy = "user")
-    private List<PostEntity> posts;
-
-    @OneToMany(mappedBy = "user")
-    private List<CommentEntity> comments;
+//    @OneToMany(mappedBy = "user")
+//    private List<PostEntity> posts;
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<CommentEntity> comments;
 
 
 //    @ManyToMany

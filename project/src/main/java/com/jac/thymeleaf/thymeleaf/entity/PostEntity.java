@@ -19,7 +19,6 @@ public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
     private String content;
     private LocalDateTime createdAt;
 
@@ -27,8 +26,8 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(mappedBy = "post")
-    private List<CommentEntity> comments;
+    @OneToOne(mappedBy = "post")
+    private CommentEntity comments;
 
 
 }

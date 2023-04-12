@@ -2,7 +2,6 @@ package com.jac.thymeleaf.thymeleaf.model;
 
 import com.jac.thymeleaf.thymeleaf.entity.CommentEntity;
 import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -14,7 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-public class PostModel {
+public class Post
+    {
 
         private Long id;
 
