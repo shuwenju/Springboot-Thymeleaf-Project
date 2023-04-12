@@ -1,16 +1,17 @@
 package com.jac.thymeleaf.thymeleaf.service;
 
-import com.jac.thymeleaf.thymeleaf.model.Post;
+import com.jac.thymeleaf.thymeleaf.model.PostModel;
+import com.jac.thymeleaf.thymeleaf.model.PostModel;
 
 import java.util.List;
 
 public interface PostService
     {
-        List<Post> getAllPosts();
+        List<PostModel> getAllPosts();
 
-        void save(Post post);
+        void save(PostModel post);
 
-        Post getPostByUserId(Long postByUserId);
+        PostModel getPostByUserId(Long postByUserId);
 
         void deletePost(Long postId);
     }

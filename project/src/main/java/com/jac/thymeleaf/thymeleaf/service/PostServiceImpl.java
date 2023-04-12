@@ -2,7 +2,8 @@ package com.jac.thymeleaf.thymeleaf.service;
 
 import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
-import com.jac.thymeleaf.thymeleaf.model.Post;
+
+import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,21 +24,21 @@ public class PostServiceImpl implements PostService
         }
 
         @Override
-        public List<Post> getAllPosts()
+        public List<PostModel> getAllPosts()
             {
                 List<PostEntity> postEntities =  postRepository.findAll();
                 return mapperHelper.convertPostEntityListToPostList(postEntities);
             }
 
         @Override
-        public void save(Post post)
+        public void save(PostModel post)
             {
                 PostEntity entity = mapperHelper.convertPostToPostEntity(post);
                 postRepository.save(entity);
             }
 
         @Override
-        public Post getPostByUserId(Long postByUserId)
+        public PostModel getPostByUserId(Long postByUserId)
             {
                 Optional<PostEntity> foundPost = postRepository.findById(postByUserId);
                 return foundPost.map(mapperHelper::convertPostEntityToPost).orElse(null);

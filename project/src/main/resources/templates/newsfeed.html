@@ -22,43 +22,39 @@
       border-radius: 5px;
       margin-bottom: 10px;
     }
-    .liked {
-      color: red;
-    }
   </style>
 </head>
 <body>
 
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-sm-8">
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="media">
-            <img src="https://via.placeholder.com/50x50" class="align-self-start mr-3 profile-image" alt="...">
-            <div class="media-body">
-              <h5 class="mt-0">Username</h5>
-              <div class="tweet">This is a sample tweet.</div>
-            </div>
+    <div th:each="post : ${postList}" class="col-sm-8">
+<!--    <div class="col-sm-8">-->
+     <div class="card mb-4">
+  <div class="card-body">
+    <div class="media">
+      <img src="${post.user.profilePicture}" class="align-self-start mr-3 profile-image" alt="...">
+      <div class="media-body">
+        <h5 class="mt-0" th:text="${post.user.username}"></h5>
+
+        <div class="tweet" th:text="${post.content}"></div>
+      </div>
+    </div>
+              <div class="d-flex justify-content-end" style="font-size: 12px;">
+            <span class="text-muted" th:text="${post.formattedDateTime}">Timestamp</span>
           </div>
-          <hr>
-          <div class="d-flex justify-content-between">
-            <div class="d-flex align-items-center">
-              <i class="far fa-comment" onclick="comments.style.display = comments.style.display ==='none'? 'block' : 'none'"></i> 0
-            </div>
-            <div class="d-flex align-items-center">
-              <a href="#" onclick="likeTweet()">
-                <i class="far fa-heart" id="like-icon"></i> 0
-              </a>
-            </div>
-            <div class="d-flex align-items-center">
-              <i class="fas fa-share"></i> 0
-            </div>
+    <hr>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <i class="far fa-comment" th:attr="onclick=|toggleComments('${post.id}')|" ></i> <span th:text="${post.comments.size}"></span>
+<!--        <i class="far fa-comment" onclick="toggleComments()"></i> <span>0</span>-->
+      </div>
           </div>
         </div>
       </div>
 
-      <div id="comments" class="card mb-4" style="display: none; width:100%;">
+      <div th:id="${post.id}" class="card mb-4" style="display: none; width:100%;">
+<!--      <div id="comments" class="card mb-4" style="display: none; width:100%;">-->
         <form id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
           <div class="form-group">
             <textarea class="form-control" id="comment-input" rows="3" placeholder="Write a comment"></textarea>
@@ -73,6 +69,13 @@
               Comment 1
             </div>
           </div>
+          <div class="media" style="margin-bottom: 20px;">
+            <img src="https://via.placeholder.com/50x50" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
+            <div class="media-body">
+              <h6 class="mt-0" style="font-size: 12px;">Username</h6>
+              Comment 2
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -81,17 +84,25 @@
 </div>
 
   <script type="text/javascript">
-    function likeTweet() {
-      var icon = document.getElementById("like-icon");
-      icon.classList.toggle("liked");
-    }
 
-    // function toggleComments() {
-    //   var comments = document.getElementById("comments");
-    //   if (comments.style.display === "none") {
-    //     comments.style.display = "block";
-    //   } else {
-    //     comments.style.display = "none";
-    //   }
-    // }
+    function toggleComments(postId) {
+      console.log("toggleComments called for post ID:", postId);
+      var comments = document.getElementById(postId);
+      console.log(comments);
+      if (comments.style.display === "none") {
+        comments.style.display = "block";
+      } else {
+        comments.style.display = "none";
+      }
+    }
   </script>
+
+
+
+<!--<div th:each="comment : ${comments}" class="media" style="margin-bottom: 20px;">-->
+<!--  <img src="https://via.placeholder.com/50x50" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">-->
+<!--  <div class="media-body">-->
+<!--    <h6 class="mt-0" style="font-size: 12px;">Username</h6>-->
+<!--    <span th:text="${comment}"></span>-->
+<!--  </div>-->
+<!--</div>-->

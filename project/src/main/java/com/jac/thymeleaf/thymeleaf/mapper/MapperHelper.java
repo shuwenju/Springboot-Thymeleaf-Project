@@ -2,7 +2,8 @@ package com.jac.thymeleaf.thymeleaf.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
-import com.jac.thymeleaf.thymeleaf.model.Post;
+import com.jac.thymeleaf.thymeleaf.model.PostModel;
+import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,19 +20,19 @@ public class MapperHelper
             this.mapper = mapper;
         }
 
-        public List<Post> convertPostEntityListToPostList(List<PostEntity> entities){
-            List<Post> posts = new ArrayList<>();
+        public List<PostModel> convertPostEntityListToPostList(List<PostEntity> entities){
+            List<PostModel> posts = new ArrayList<>();
             for(PostEntity entity: entities){
-                posts.add(mapper.convertValue(entity, Post.class));
+                posts.add(mapper.convertValue(entity, PostModel.class));
             }
             return posts;
         }
 
-        public PostEntity convertPostToPostEntity(Post post){
+        public PostEntity convertPostToPostEntity(PostModel post){
             return mapper.convertValue(post, PostEntity.class);
         }
 
-        public Post convertPostEntityToPost(PostEntity postEntity){
-            return mapper.convertValue(postEntity, Post.class);
+        public PostModel convertPostEntityToPost(PostEntity postEntity){
+            return mapper.convertValue(postEntity, PostModel.class);
         }
     }
