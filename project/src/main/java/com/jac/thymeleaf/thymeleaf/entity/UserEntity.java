@@ -32,17 +32,15 @@ public class UserEntity {
     @OneToMany(mappedBy = "user")
     private List<CommentEntity> comments;
 
-    @OneToMany(mappedBy = "user")
-    private List<LikeEntity> likes;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_following",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "following_id"))
-    private Set<UserEntity> following;
-
-    @ManyToMany(mappedBy = "following")
-    private Set<UserEntity> followers;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "user_following",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "following_id"))
+//    private Set<UserEntity> following;
+//
+//    @ManyToMany(mappedBy = "following")
+//    private Set<UserEntity> followers;
 
 }

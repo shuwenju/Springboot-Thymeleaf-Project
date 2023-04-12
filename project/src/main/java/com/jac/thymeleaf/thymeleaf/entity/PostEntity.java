@@ -30,7 +30,5 @@ public class PostEntity {
     @OneToMany(mappedBy = "post")
     private List<CommentEntity> comments;
 
-    @OneToMany(mappedBy = "post")
-    private List<LikeEntity> likes;
 
 }
