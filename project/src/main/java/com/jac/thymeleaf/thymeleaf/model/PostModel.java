@@ -21,6 +21,6 @@ public class PostModel {
     @Size(min = 2, max = 255)
     private String content;
     private LocalDateTime createdAt;
-//    private UserModel user;
+    private UserModel user;
 //    private List<CommentModel> comments;
 }
