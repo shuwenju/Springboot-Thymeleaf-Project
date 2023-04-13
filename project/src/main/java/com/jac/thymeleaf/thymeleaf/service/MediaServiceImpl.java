@@ -1,8 +1,10 @@
 package com.jac.thymeleaf.thymeleaf.service;
 
+import com.jac.thymeleaf.thymeleaf.entity.CommentEntity;
 import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 
+import com.jac.thymeleaf.thymeleaf.model.CommentModel;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.repository.CommentRepository;
 import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
@@ -34,22 +36,30 @@ public class MediaServiceImpl implements MediaService
         public List<PostModel> getAllPosts()
             {
                 List<PostEntity> postEntities =  postRepository.findAll();
-                return mapperHelper.convertPostEntityListToPostList(postEntities);
+                return mapperHelper.convertPostEntityListToPostModelList(postEntities);
             }
 
         @Override
         public void save(PostModel post)
             {
-                PostEntity entity = mapperHelper.convertPostToPostEntity(post);
+                PostEntity entity = mapperHelper.convertPostModeltoPostEntity(post);
                 postRepository.save(entity);
             }
 
-//        @Override
-//        public PostModel getPostByUserId(Long postByUserId)
-//            {
-//                Optional<PostEntity> foundPost = postRepository.findById(postByUserId);
-//                return foundPost.map(mapperHelper::convertPostEntityToPost).orElse(null);
-//            }
+
+        @Override
+        public List<PostModel> getPostByUserId(Long postByUserId)
+            {
+                List<PostEntity> foundPost = postRepository.findAllByUserId(postByUserId);
+                return mapperHelper.convertPostEntityListToPostModelList(foundPost);
+            }
+
+        @Override
+        public List<CommentModel> getAllCommentByPostId(Long postId) {
+            List<CommentEntity> foundComments = commentRepository.findByPostId(postId);
+            return mapperHelper.convertCommentEntityListtoCommentModelList(foundComments);
+        }
+
 
         @Override
         public void deletePost(Long postId)
