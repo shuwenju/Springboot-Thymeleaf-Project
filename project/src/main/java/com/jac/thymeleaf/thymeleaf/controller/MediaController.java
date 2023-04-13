@@ -8,8 +8,7 @@ import com.jac.thymeleaf.thymeleaf.view.PostView;
 import com.jac.thymeleaf.thymeleaf.view.UserView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
@@ -43,7 +42,7 @@ public class MediaController {
     UserView user1 = UserView.builder()
             .id(1L)
             .username("user1")
-            .profilePicture("resources/static/profile/profile1.png")
+            .profilePicture("images/profile1.png")
             .posts(new ArrayList<>())
             .comments(new ArrayList<>()).build();
     CommentView comment1 = CommentView.builder()
@@ -52,9 +51,13 @@ public class MediaController {
             .user(user1)
             .build();
 
-@GetMapping("view")
-public String viewAllPosts(Model theModel){
-    List<PostView> postViewList = new ArrayList<>();
+    CommentView comment2 = CommentView.builder()
+            .id(2L)
+            .content("Second comment")
+            .user(user1)
+            .build();
+
+
     PostView post1 =PostView.builder()
             .id(1l)
             .content("first post!")
@@ -62,7 +65,9 @@ public String viewAllPosts(Model theModel){
 //            .comments(new ArrayList<>())
             .build();
     List<CommentView> commentList1 = new ArrayList<>();
-    commentList1.add(comment1);
+@GetMapping("view")
+public String viewAllPosts(Model theModel){
+    List<PostView> postViewList = new ArrayList<>();
     LocalDateTime createdAt = LocalDateTime.now();
     post1.formatCreatedAt(createdAt);
     post1.setFormattedDateTime(post1.getFormattedDateTime());
@@ -76,6 +81,7 @@ public String viewAllPosts(Model theModel){
             .build();
     List<CommentView> commentList2 = new ArrayList<>();
     commentList2.add(comment1);
+    commentList2.add(comment2);
     LocalDateTime createdAt2 = LocalDateTime.now();
     post2.formatCreatedAt(createdAt2);
     post2.setFormattedDateTime(post2.getFormattedDateTime());
@@ -86,4 +92,17 @@ public String viewAllPosts(Model theModel){
     theModel.addAttribute("postList", postViewList);
     return "newsfeed";
 }
+
+    @PostMapping("addcomments")
+    public String addComment( @RequestParam("content") String commentContent){
+//                              @RequestParam("postId") Long postid) {
+        CommentView newComment = CommentView.builder()
+                .content(commentContent)
+                .createdAt(LocalDateTime.now())
+                .user(user1)
+                .post(post1)
+                .build();
+        post1.getComments().add(newComment);
+        return "redirect:view";
+    }
 }

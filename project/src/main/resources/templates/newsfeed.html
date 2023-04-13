@@ -29,11 +29,10 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div th:each="post : ${postList}" class="col-sm-8">
-<!--    <div class="col-sm-8">-->
      <div class="card mb-4">
   <div class="card-body">
     <div class="media">
-      <img src="${post.user.profilePicture}" class="align-self-start mr-3 profile-image" alt="...">
+      <img th:src="${post.user.profilePicture}" class="align-self-start mr-3 profile-image" alt="profile">
       <div class="media-body">
         <h5 class="mt-0" th:text="${post.user.username}"></h5>
 
@@ -47,35 +46,29 @@
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center">
         <i class="far fa-comment" th:attr="onclick=|toggleComments('${post.id}')|" ></i> <span th:text="${post.comments.size}"></span>
-<!--        <i class="far fa-comment" onclick="toggleComments()"></i> <span>0</span>-->
       </div>
           </div>
         </div>
       </div>
 
       <div th:id="${post.id}" class="card mb-4" style="display: none; width:100%;">
-<!--      <div id="comments" class="card mb-4" style="display: none; width:100%;">-->
-        <form id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+        <form th:action="@{/addcomments}" method="post" id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
           <div class="form-group">
-            <textarea class="form-control" id="comment-input" rows="3" placeholder="Write a comment"></textarea>
+            <textarea class="form-control" id="comment-input" rows="3" placeholder="Write a comment" th:name="content"></textarea>
           </div>
+<!--            <input type="hidden" th:name="createdAt" th:value="${#dates.format(#calendars.createCalendar().getTime(), 'yyyy-MM-dd HH:mm:ss')}">-->
+<!--            <input type="hidden" th:name="postId" th:value="${post.id}">-->
+<!--            <input type="hidden" th:name="userId" th:value="${loggedInUser.id}">-->
           <button type="submit" class="btn btn-primary mb-3" >Send</button>
         </form>
         <div class="card-body">
-          <div class="media" style="margin-bottom: 20px;">
-            <img src="https://via.placeholder.com/50x50" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
-            <div class="media-body">
-              <h6 class="mt-0" style="font-size: 12px;">Username</h6>
-              Comment 1
+            <div th:each="comment : ${post.comments}" class="media" style="margin-bottom: 20px;">
+                <img th:src="${comment.user.profilePicture}" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
+                <div class="media-body">
+                    <h6 class="mt-0" style="font-size: 12px;" th:text="${comment.user.username}"></h6>
+                    <span th:text="${comment.content}"></span>
+                </div>
             </div>
-          </div>
-          <div class="media" style="margin-bottom: 20px;">
-            <img src="https://via.placeholder.com/50x50" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
-            <div class="media-body">
-              <h6 class="mt-0" style="font-size: 12px;">Username</h6>
-              Comment 2
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -86,9 +79,8 @@
   <script type="text/javascript">
 
     function toggleComments(postId) {
-      console.log("toggleComments called for post ID:", postId);
+      // console.log("toggleComments called for post ID:", postId);
       var comments = document.getElementById(postId);
-      console.log(comments);
       if (comments.style.display === "none") {
         comments.style.display = "block";
       } else {
@@ -99,10 +91,4 @@
 
 
 
-<!--<div th:each="comment : ${comments}" class="media" style="margin-bottom: 20px;">-->
-<!--  <img src="https://via.placeholder.com/50x50" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">-->
-<!--  <div class="media-body">-->
-<!--    <h6 class="mt-0" style="font-size: 12px;">Username</h6>-->
-<!--    <span th:text="${comment}"></span>-->
-<!--  </div>-->
-<!--</div>-->
+

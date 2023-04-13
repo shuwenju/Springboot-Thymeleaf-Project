@@ -26,8 +26,8 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToOne(mappedBy = "post")
-    private CommentEntity comments;
+    @OneToMany(mappedBy = "post")
+    private List<CommentEntity> comments;
 
 
 }

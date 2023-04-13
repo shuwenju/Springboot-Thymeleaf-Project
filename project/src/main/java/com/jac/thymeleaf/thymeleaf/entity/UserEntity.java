@@ -26,21 +26,11 @@ public class UserEntity {
     private String lastName;
     private String profilePicture;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<PostEntity> posts;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<CommentEntity> comments;
+    @OneToMany(mappedBy = "user")
+    private List<PostEntity> posts;
 
+    @OneToMany(mappedBy = "user")
+    private List<CommentEntity> comments;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "user_following",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "following_id"))
-//    private Set<UserEntity> following;
-//
-//    @ManyToMany(mappedBy = "following")
-//    private Set<UserEntity> followers;
 
 }
