@@ -11,7 +11,6 @@ import java.util.List;
  * @author Shuwen Ju
  */
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
-
     @Query("SELECT c FROM CommentEntity c JOIN c.post p WHERE p.id = :postId")
     List<CommentEntity> findByPostId(@Param("postId") Long postId);
 }
