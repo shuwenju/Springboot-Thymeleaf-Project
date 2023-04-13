@@ -11,17 +11,13 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link
-      rel="stylesheet"
-      href="/css/main.css"
-      type="text/css"
-    />
+    <link rel="stylesheet" href="css/main.css" type="text/css" />
   </head>
   <body>
-    <main class="container col-12 p-0 d-flex flex-row">
-      <section class="container col-xl-8 col-lg-6" id="left-side">
+    <main class="container p-0 d-flex flex-row">
+      <section id="left-side">
         <img
-          src="/images/pexels-jaime-reimer-2662116.jpg"
+          src="images/pexels-jaime-reimer-2662116.jpg"
           alt="main-image"
           width="100%"
           height="100%"
@@ -33,9 +29,9 @@
             <h2>Login</h2>
           </div>
 
-<!--          login-->
+          <!--          login-->
 
-          <form th:action="" method="post" id="login-form">
+          <form th:action="@{/main/login}" method="post" id="login-form">
             <div class="form-floating m-2">
               <input
                 type="text"
@@ -66,11 +62,15 @@
                 class="disable-link"
                 href="#"
                 onclick="toggleForms()"
-                id="login-button"
+                id="login-button-login"
                 >Login</a
               >
               <small>|</small>
-              <a class="" href="#" onclick="toggleForms()" id="register-button"
+              <a
+                class=""
+                href="#"
+                onclick="toggleForms()"
+                id="register-button-login"
                 >Register</a
               >
             </div>
@@ -81,57 +81,71 @@
             <h2>Register</h2>
           </div>
 
-<!--          register-->
-          <form th:action="" method="post" id="register-form">
+          <form
+            th:action="@{/register}"
+            th:object="${userModel}"
+            method="post"
+            id="register-form"
+          >
             <div class="form-floating m-2">
               <input
                 type="text"
-                name="username"
+                th:field="*{username}"
                 class="form-control"
                 id="register-username"
                 placeholder=""
+                required
               />
               <label for="register-username">Username</label>
+              <span class="text-danger" th:errors="*{username}"></span>
             </div>
             <div class="form-floating m-2">
               <input
                 type="text"
-                name="email"
+                th:field="*{email}"
                 class="form-control"
                 id="register-email"
                 placeholder=""
+                required
               />
               <label for="register-email">Email</label>
+              <span class="text-danger" th:errors="*{email}"></span>
             </div>
             <div class="form-floating m-2">
               <input
                 type="password"
-                name="password"
+                th:field="*{password}"
                 class="form-control"
                 id="register-password"
                 placeholder=""
+                required
               />
               <label for="register-password">Password</label>
+              <span class="text-danger" th:errors="*{password}"></span>
             </div>
             <div class="form-floating m-2">
               <input
                 type="text"
-                name="firstName"
+                th:field="*{firstName}"
                 class="form-control"
                 id="register-firstName"
                 placeholder=""
+                required
               />
               <label for="register-firstName">First Name</label>
+              <span class="text-danger" th:errors="*{firstName}"></span>
             </div>
             <div class="form-floating m-2">
               <input
                 type="text"
-                name="lastName"
+                th:field="*{lastName}"
                 class="form-control"
                 id="register-lastName"
                 placeholder=""
+                required
               />
               <label for="register-lastName">Last Name</label>
+              <span class="text-danger" th:errors="*{lastName}"></span>
             </div>
             <div class="row d-flex justify-content-center p-3">
               <button type="submit" class="btn-lg btn-primary shadow-none">
@@ -139,7 +153,12 @@
               </button>
             </div>
             <div class="button-changes">
-              <a class="" href="#" onclick="toggleForms()" id="login-button">
+              <a
+                class=""
+                href="#"
+                onclick="toggleForms()"
+                id="login-button-register"
+              >
                 Login
               </a>
               <small>|</small>
@@ -147,7 +166,7 @@
                 class="disable-link"
                 href="#"
                 onclick="toggleForms()"
-                id="register-button"
+                id="register-button-register"
                 >Register</a
               >
             </div>
@@ -155,7 +174,7 @@
         </div>
       </section>
     </main>
-    <footer th:insert="fragments/footer :: footer"></footer>
+    <footer th:insert="~{fragments/footer :: footer}"></footer>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
       integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -166,9 +185,6 @@
       integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
-    <script
-      src="/js/main.js"
-      defer
-    ></script>
+    <script src="js/main.js" defer></script>
   </body>
 </html>
