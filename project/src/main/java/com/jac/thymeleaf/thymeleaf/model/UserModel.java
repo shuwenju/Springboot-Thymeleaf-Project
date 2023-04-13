@@ -23,6 +23,6 @@ public class UserModel {
     private String firstName;
     private String lastName;
     private String profilePicture;
-    private List<PostModel> posts;
-    private List<CommentModel> comments;
+//    private List<PostModel> posts;
+//    private List<CommentModel> comments;
 }

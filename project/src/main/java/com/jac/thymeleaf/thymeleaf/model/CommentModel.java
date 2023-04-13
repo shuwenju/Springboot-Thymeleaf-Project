@@ -20,6 +20,6 @@ public class CommentModel {
     private Long id;
     private String content;
     private LocalDateTime createdAt;
-    private UserEntity user;
-    private PostEntity post;
+    private UserModel user;
+    private PostModel post;
 }
