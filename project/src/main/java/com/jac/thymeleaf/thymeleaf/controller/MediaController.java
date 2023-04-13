@@ -1,8 +1,7 @@
 package com.jac.thymeleaf.thymeleaf.controller;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
-import com.jac.thymeleaf.thymeleaf.service.PostService;
 
-import com.jac.thymeleaf.thymeleaf.service.PostServiceImpl;
+import com.jac.thymeleaf.thymeleaf.service.MediaServiceImpl;
 import com.jac.thymeleaf.thymeleaf.view.CommentView;
 import com.jac.thymeleaf.thymeleaf.view.PostView;
 import com.jac.thymeleaf.thymeleaf.view.UserView;
@@ -22,10 +21,10 @@ import java.util.List;
 @RequestMapping("/")
 public class MediaController {
 
-    private final PostServiceImpl postServiceImpl;
+    private final MediaServiceImpl postServiceImpl;
 
     @Autowired
-    public MediaController(PostServiceImpl postService) {
+    public MediaController(MediaServiceImpl postService) {
         this.postServiceImpl = postService;
     }
 
