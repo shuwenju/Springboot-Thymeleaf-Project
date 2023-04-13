@@ -18,6 +18,6 @@ public class UserView {
     private Long id;
     private String username;
     private String profilePicture;
-    private List<PostEntity> posts;
-    private List<CommentEntity> comments;
+    private List<PostView> posts;
+    private List<CommentView> comments;
 }
