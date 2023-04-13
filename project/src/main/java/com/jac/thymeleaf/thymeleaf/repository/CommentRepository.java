@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Shuwen Ju
  */
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     @Query("SELECT c FROM CommentEntity c JOIN c.post p WHERE p.id = :postId")
-    List<CommentEntity> findByPostId(@Param("postId") Long postId);
+    Optional<List<CommentEntity>> findByPostId(@Param("postId") Long postId);
+
+    void saveAll(List<CommentEntity> commentEntities);
 }

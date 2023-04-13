@@ -9,10 +9,12 @@ public interface MediaService
     {
         List<PostModel> getAllPosts();
 
-        void save(PostModel post);
+        void savePost(PostModel post);
+        void saveComment(CommentModel comment);
 
         List<PostModel> getPostByUserId(Long userId);
         List<CommentModel> getAllCommentByPostId(Long postId);
+
 
         void deletePost(Long postId);
     }
