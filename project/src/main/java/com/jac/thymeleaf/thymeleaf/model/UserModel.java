@@ -19,7 +19,9 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 public class UserModel {
+    private Long id;
     @Size(min = 5, max = 15, message = "Username must be between 2 and 15 characters")
     private String username;
 

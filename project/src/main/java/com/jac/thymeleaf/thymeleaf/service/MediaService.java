@@ -15,6 +15,6 @@ public interface MediaService
         List<PostModel> getPostByUserId(Long userId);
         List<CommentModel> getAllCommentByPostId(Long postId);
 
-
+        PostModel findPostById(Long id);
         void deletePost(Long postId);
     }

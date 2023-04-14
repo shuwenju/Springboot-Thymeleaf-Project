@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 public class PostModel {
     private Long id;
     @NotEmpty(message = "Content cannot be empty")

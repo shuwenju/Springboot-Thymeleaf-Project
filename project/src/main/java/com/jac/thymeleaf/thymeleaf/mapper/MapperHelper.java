@@ -1,19 +1,16 @@
 package com.jac.thymeleaf.thymeleaf.mapper;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jac.thymeleaf.thymeleaf.entity.CommentEntity;
 import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
 import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
-import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Component
 public class MapperHelper
@@ -71,7 +68,8 @@ public class MapperHelper
                     .content(commentEntity.getContent())
                     .createdAt(commentEntity.getCreatedAt())
                     .user(userModel)
-                    .post(postModel).build();
+                    .post(postModel)
+                    .build();
             return commentModel;
         }
 

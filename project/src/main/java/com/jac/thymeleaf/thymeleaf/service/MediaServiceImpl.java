@@ -2,6 +2,7 @@ package com.jac.thymeleaf.thymeleaf.service;
 
 import com.jac.thymeleaf.thymeleaf.entity.CommentEntity;
 import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
+import com.jac.thymeleaf.thymeleaf.exceptions.PostNotFoundException;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
@@ -9,6 +10,7 @@ import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.repository.CommentRepository;
 import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
 import com.jac.thymeleaf.thymeleaf.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,19 +43,35 @@ public class MediaServiceImpl implements MediaService
                 return mapperHelper.convertPostEntityListToPostModelList(postEntities);
             }
 
+        public PostModel findPostById(Long id){
+            Optional<PostEntity> foundEntity = postRepository.findById(id);
+            if(foundEntity.isPresent()){
+                PostModel foundPost = mapperHelper.convertPostEntityToPostModel(foundEntity.get());
+                return foundPost;
+                }else {
+                    throw new PostNotFoundException("Post not found with id " + id);
+                }
+
+            }
         @Override
-        public void savePost(PostModel post)
+        @Transactional
+        public void savePost(PostModel post) // added method to save user first, otherwise it won't save
             {
                 PostEntity entity = mapperHelper.convertPostModeltoPostEntity(post);
+                userRepository.save(entity.getUser());
                 postRepository.save(entity);
-                //when you save a post, you have to save the comment that is associated with it
-                //get the comment associated with it
+
             }
 
 
         @Override
-        public void saveComment(CommentModel comment) {
+        @Transactional
+        public void saveComment(CommentModel comment) { // somehow had to set Post from pulling from the database again otherwise post id is null, but why it doesn't happen to the user?
+            PostEntity postEntity = postRepository.findById(comment.getPost().getId()).get();
             CommentEntity entity = mapperHelper.convertCommentModeltoCommentEntity(comment);
+            entity.setPost(postEntity);
+            userRepository.save(entity.getUser());
+            postRepository.save(entity.getPost());
             commentRepository.save(entity);
         }
 
@@ -91,6 +109,7 @@ public class MediaServiceImpl implements MediaService
 
 
         @Override
+        @Transactional
         public void deletePost(Long postId)
             {
                 postRepository.deleteById(postId);

@@ -15,5 +15,5 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
     @Query("SELECT c FROM CommentEntity c JOIN c.post p WHERE p.id = :postId")
     Optional<List<CommentEntity>> findByPostId(@Param("postId") Long postId);
 
-    void saveAll(List<CommentEntity> commentEntities);
+//    void saveAll(List<CommentEntity> commentEntities);
 }
