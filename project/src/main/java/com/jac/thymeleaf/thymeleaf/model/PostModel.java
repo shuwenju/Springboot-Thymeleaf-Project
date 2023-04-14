@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -22,6 +23,12 @@ public class PostModel {
     @Size(min = 2, max = 255)
     private String content;
     private LocalDateTime createdAt;
+    private String formattedDateTime;
     private UserModel user;
 //    private List<CommentModel> comments;
+
+    public void formatCreatedAt(LocalDateTime createdAt) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
+        formattedDateTime = createdAt.format(formatter);
+    }
 }
