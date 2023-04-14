@@ -24,7 +24,7 @@ public class UserEntity {
     private String password;
     private String firstName;
     private String lastName;
-    private String profilePicture;
+    private String sex;
 
 //    @OneToMany(mappedBy = "user")
 //    private List<PostEntity> posts;

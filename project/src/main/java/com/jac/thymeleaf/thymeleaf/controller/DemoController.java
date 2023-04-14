@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/social")
 public class DemoController {
         private final UserService userService;
         private final MapperHelper mapper;
@@ -31,11 +31,17 @@ public class DemoController {
             return "index";
         }
 
+        @GetMapping("/register")
+        public String showRegistrationForm(Model model) {
+            model.addAttribute("userModel", new UserModel());
+            return "register";
+        }
+
         @PostMapping("/register")
         public String register(@ModelAttribute("userModel") @Valid UserModel userModel, BindingResult result, Model model) {
             if (result.hasErrors()) {
 //                model.addAttribute("registrationError");
-                return "index";
+                return "register";
             }
 
             UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
@@ -43,7 +49,7 @@ public class DemoController {
 
 //            model.addAttribute("successMessage", "Registration successful. You can log in now.");
 //            model.addAttribute("userModel", new UserModel());
-            return "index";
+            return "login";
         }
 
 

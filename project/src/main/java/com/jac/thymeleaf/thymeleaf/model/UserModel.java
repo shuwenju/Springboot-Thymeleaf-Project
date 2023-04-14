@@ -38,6 +38,8 @@ public class UserModel {
     @Size(min = 4, max = 15, message = "Last name must be between 4 and 15 characters")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters in names")
     private String lastName;
+
+    private String sex;
 //    private List<PostModel> posts;
 //    private List<CommentModel> comments;
 }
