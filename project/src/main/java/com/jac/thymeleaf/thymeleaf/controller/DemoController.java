@@ -1,5 +1,6 @@
 package com.jac.thymeleaf.thymeleaf.controller;
 
+import ch.qos.logback.core.model.conditional.ThenModel;
 import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
@@ -10,6 +11,7 @@ import com.jac.thymeleaf.thymeleaf.repository.UserRepository;
 import com.jac.thymeleaf.thymeleaf.service.MediaService;
 import com.jac.thymeleaf.thymeleaf.service.UserService;
 
+import com.jac.thymeleaf.thymeleaf.view.CommentView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -19,6 +21,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,5 +123,41 @@ public class DemoController {
         theModel.addAttribute("commentsByPost", commentByPostId);
         theModel.addAttribute("totalComments", totalComments);
         return "newsfeed";
+    }
+
+    @PostMapping("/addcomments")
+    public String addComment( @RequestParam("content") String commentContent,
+                              @RequestParam("postId") Long postId){
+//                              @ModelAttribute("postList") List<PostModel> postList) {
+//        HttpSession session){
+//        session.getAttribute
+        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
+        PostModel post = mediaService.findPostById(postId);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		LocalDateTime localDateTime = timestamp.toLocalDateTime();
+        CommentModel newComment = CommentModel.builder()
+                .content(commentContent)
+                .createdAt(localDateTime)
+                .user(user)
+                .post(post)
+                .build();
+        mediaService.saveComment(newComment);
+        return "redirect:newsfeed";
+    }
+
+    @PostMapping("/post")
+    public String postPost(@RequestParam("postContent") String postContent){
+//                           HttpSession session){
+//        session.getAttribute
+        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        LocalDateTime localDateTime = timestamp.toLocalDateTime();
+        PostModel newPost = PostModel.builder()
+                .content(postContent)
+                .createdAt(localDateTime)
+                .user(user).build();
+        mediaService.savePost(newPost);
+        return "redirect:newsfeed";
     }
 }

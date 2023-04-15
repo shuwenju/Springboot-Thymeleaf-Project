@@ -25,14 +25,38 @@
     </style>
 </head>
 <body>
-
 <div class="container mt-4">
     <div class="row justify-content-center">
+    <div class="col-sm-8">
+    <div class="card mb-4" >
+        <div class="card-body">
+            <form th:action="@{/social/post}" method="post">
+                <div class="media mb-3">
+                    <img th:src="@{/image/default-profile.jpeg}" class="align-self-start mr-3 profile-image" alt="profile">
+                    <div class="media-body">
+<!--                        <h5 class="mt-0" th:text="${session....username}">John Doe</h5>-->
+                        <h5 class="mt-0" >John Doe</h5>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="content">Post content:</label>
+                    <textarea th:name="postContent" id="content" name="content" class="form-control" required></textarea>
+                </div>
+
+                    <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="row justify-content-center ">
         <div th:each="post : ${postList}" class="col-sm-8">
             <div class="card mb-4">
                 <div class="card-body">
                     <div class="media">
-                        <img th:src="${post.user.profilePicture}" class="align-self-start mr-3 profile-image" alt="profile">
+                        <img th:src="${post.user.sex}" class="align-self-start mr-3 profile-image" alt="profile">
                         <div class="media-body">
                             <h5 class="mt-0" th:text="${post.user.username}"></h5>
 
@@ -45,25 +69,24 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <div class="d-flex align-items-center">
-                            <i class="far fa-comment" th:attr="onclick=|toggleComments('${post.id}')|" ></i> <span th:text="0"></span>
+                            <i class="far fa-comment" th:attr="onclick=|toggleComments('${post.id}')|" ></i> <span th:text="${commentsByPost.get(post.id).size()}"></span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div th:id="${post.id}" class="card mb-4" style="display: none; width:100%;">
-                <form th:action="@{/addcomments}" method="post" id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+                <form th:action="@{/social/addcomments}" method="post" id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
                     <div class="form-group">
                         <textarea class="form-control" id="comment-input" rows="3" placeholder="Write a comment" th:name="content"></textarea>
                     </div>
-                    <!--            <input type="hidden" th:name="createdAt" th:value="${#dates.format(#calendars.createCalendar().getTime(), 'yyyy-MM-dd HH:mm:ss')}">-->
-                    <!--            <input type="hidden" th:name="postId" th:value="${post.id}">-->
+                                <input type="hidden" th:name="postId" th:value="${post.id}">
                     <!--            <input type="hidden" th:name="userId" th:value="${loggedInUser.id}">-->
                     <button type="submit" class="btn btn-primary mb-3" >Send</button>
                 </form>
                 <div class="card-body">
                     <div th:each="comment : ${commentsByPost.get(post.id)}" class="media" style="margin-bottom: 20px;">
-                        <img th:src="${comment.user.profilePicture}" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
+                        <img th:src="${comment.user.sex}" class="mr-3 rounded-circle" alt="Profile Picture" style="width:32px;height:32px;">
                         <div class="media-body">
                             <h6 class="mt-0" style="font-size: 12px;" th:text="${comment.user.username}"></h6>
                             <span th:text="${comment.content}"></span>

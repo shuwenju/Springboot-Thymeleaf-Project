@@ -12,4 +12,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Query("SELECT p FROM PostEntity p WHERE p.user.id = :userId")
     Optional<List<PostEntity>> findAllByUserId(@Param("userId") Long userId);
 
+    List<PostEntity> findAllByOrderByIdDesc();
+
 }

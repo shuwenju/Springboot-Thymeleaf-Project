@@ -39,7 +39,7 @@ public class MediaServiceImpl implements MediaService
         @Override
         public List<PostModel> getAllPosts()
             {
-                List<PostEntity> postEntities =  postRepository.findAll();
+                List<PostEntity> postEntities =  postRepository.findAllByOrderByIdDesc();
                 return mapperHelper.convertPostEntityListToPostModelList(postEntities);
             }
 
