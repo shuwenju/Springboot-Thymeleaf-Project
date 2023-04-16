@@ -17,7 +17,7 @@ import java.util.List;
 public class UserView {
     private Long id;
     private String username;
-    private String profilePicture;
+    private String sex;
     private List<PostView> posts;
     private List<CommentView> comments;
 }

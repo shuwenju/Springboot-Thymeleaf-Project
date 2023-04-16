@@ -105,7 +105,7 @@ public class DemoController {
             // Login successful, set user in session and redirect to dashboard
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            return "redirect:/newsfeed";
+            return "redirect:/social/newsfeed";
         }
 
 
