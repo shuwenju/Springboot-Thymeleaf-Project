@@ -33,10 +33,12 @@
         <div class="card-body">
             <form th:action="@{/social/post}" method="post">
                 <div class="media mb-3">
-                    <img th:src="@{/image/default-profile.jpeg}" class="align-self-start mr-3 profile-image" alt="profile">
+                    <img th:src="@{/images/default-profile.jpeg}" class="align-self-start mr-3 profile-image" alt="profile">
                     <div class="media-body">
 <!--                        <h5 class="mt-0" th:text="${session....username}">John Doe</h5>-->
                         <h5 class="mt-0" th:text="${session.username}"></h5>
+                        <h5 class="mt-0" >Passenger</h5>
+<!--                        <h5 class="mt-0" th:text="${#httpSession.getAttribute('user').username}">Passenger</h5>-->
                     </div>
                 </div>
                 <div class="form-group">
