@@ -106,7 +106,14 @@ public class DemoController {
 
 
     @GetMapping("/newsfeed")
-    public String profilePosts(Model theModel){
+    public String profilePosts(Model theModel, HttpSession session){
+        // Get the user object from the session
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+
+        // Add the user object to the model
+        UserModel userModel = mapper.convertUserEntitytoModel(userEntity);
+        theModel.addAttribute("user", userModel);
+
         List<PostModel> postList = mediaService.getAllPosts();
         Map<Long, List<CommentModel>> commentByPostId = new HashMap<>();
         int totalComments = 0;
@@ -157,5 +164,14 @@ public class DemoController {
         return "redirect:newsfeed";
     }
 
-    
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        if(session != null){
+            session.invalidate();
+        }
+        return "redirect:/social";
+    }
 }
+
+
