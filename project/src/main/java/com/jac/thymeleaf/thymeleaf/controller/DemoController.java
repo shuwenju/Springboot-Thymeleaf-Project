@@ -100,6 +100,7 @@ public class DemoController {
 
             // Login successful, set user in session and redirect to dashboard
             HttpSession session = request.getSession();
+            session.setAttribute("userId", user.getId());
             session.setAttribute("user", user);
             session.setAttribute("fname", user.getFirstName());
             session.setAttribute("lname", user.getLastName());
@@ -147,10 +148,11 @@ public class DemoController {
     }
 
     @PostMapping("/post")
-    public String postPost(@RequestParam("postContent") String postContent){
-//                           HttpSession session){
-//        session.getAttribute
-        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
+    public String postPost(@RequestParam("postContent") String postContent, HttpSession session){
+        Long userId = (Long) session.getAttribute("userId");
+        UserModel user = mapper.convertUserEntitytoModel(userService.findById(userId).get());
+
+//        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LocalDateTime localDateTime = timestamp.toLocalDateTime();
         PostModel newPost = PostModel.builder()
