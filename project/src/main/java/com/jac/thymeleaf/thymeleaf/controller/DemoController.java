@@ -111,10 +111,12 @@ public class DemoController {
 
     @GetMapping("/newsfeed")
     public String profilePosts(Model theModel, HttpSession session){
-        // Get the user object from the session
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
 
-        // Add the user object to the model
+        if (userEntity == null) {
+            return "redirect:/social"; // Redirect to the index page
+        }
+
         UserModel userModel = mapper.convertUserEntitytoModel(userEntity);
         theModel.addAttribute("user", userModel);
 
