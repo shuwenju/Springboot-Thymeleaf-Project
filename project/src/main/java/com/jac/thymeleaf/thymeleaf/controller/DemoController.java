@@ -102,6 +102,7 @@ public class DemoController {
             HttpSession session = request.getSession();
             session.setAttribute("userId", user.getId());
             session.setAttribute("user", user);
+
             session.setAttribute("fname", user.getFirstName());
             session.setAttribute("lname", user.getLastName());
             session.setAttribute("username", user.getUsername());
@@ -128,7 +129,6 @@ public class DemoController {
 
     @PostMapping("/addcomments")
     public String addComment( @RequestParam("content") String commentContent,
-                              @RequestParam("postId") Long postId){
 //                              @ModelAttribute("postList") List<PostModel> postList) {
 //        HttpSession session){
 //        session.getAttribute
@@ -148,11 +148,11 @@ public class DemoController {
     }
 
     @PostMapping("/post")
-    public String postPost(@RequestParam("postContent") String postContent, HttpSession session){
-        Long userId = (Long) session.getAttribute("userId");
-        UserModel user = mapper.convertUserEntitytoModel(userService.findById(userId).get());
-
-//        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
+    public String postPost(@RequestParam("postContent") String postContent,
+                           HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        UserModel user = mapper.convertUserEntitytoModel(userEntity);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LocalDateTime localDateTime = timestamp.toLocalDateTime();
         PostModel newPost = PostModel.builder()
