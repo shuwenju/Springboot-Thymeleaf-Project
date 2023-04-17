@@ -25,7 +25,6 @@
     </style>
 </head>
 <body>
-<header th:insert="~{fragments/navbar :: nav}"></header>
 <div class="container mt-4">
     <div class="row justify-content-center">
     <div class="col-sm-8">
@@ -36,7 +35,7 @@
                     <img th:src="@{/image/default-profile.jpeg}" class="align-self-start mr-3 profile-image" alt="profile">
                     <div class="media-body">
 <!--                        <h5 class="mt-0" th:text="${session....username}">John Doe</h5>-->
-                        <h5 class="mt-0" >John Doe</h5>
+                        <h5 class="mt-0" th:text="${session.username}"></h5>
                     </div>
                 </div>
                 <div class="form-group">
