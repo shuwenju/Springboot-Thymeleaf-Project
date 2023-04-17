@@ -107,6 +107,8 @@ public class DemoController {
             session.setAttribute("lname", user.getLastName());
             session.setAttribute("username", user.getUsername());
             session.setAttribute("sex", user.getSex());
+
+            System.out.println(session.getAttribute("user"));
             return "redirect:/social/newsfeed";
         }
 
@@ -129,22 +131,44 @@ public class DemoController {
 
     @PostMapping("/addcomments")
     public String addComment( @RequestParam("content") String commentContent,
-//                              @ModelAttribute("postList") List<PostModel> postList) {
-//        HttpSession session){
-//        session.getAttribute
-        UserModel user = mapper.convertUserEntitytoModel(userService.findById(1L).get());
-        PostModel post = mediaService.findPostById(postId);
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		LocalDateTime localDateTime = timestamp.toLocalDateTime();
-        CommentModel newComment = CommentModel.builder()
-                .content(commentContent)
-                .createdAt(localDateTime)
-                .user(user)
-                .post(post)
-                .build();
-        mediaService.saveComment(newComment);
-        return "redirect:newsfeed";
+                              @RequestParam("postId") Long postId,
+                              HttpServletRequest request){
+        HttpSession session = request.getSession();
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        if (userEntity == null) {
+            UserEntity defaultUser = UserEntity.builder()
+                    .id(-1L)
+                    .email("default@mail.com")
+                    .firstName("Passenger")
+                    .lastName("Account")
+                    .username("Passenger")
+                    .sex("/images/default-profile.jpeg").build();
+            UserModel userModelDefault = mapper.convertUserEntitytoModel(defaultUser);
+            PostModel post = mediaService.findPostById(postId);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            LocalDateTime localDateTime = timestamp.toLocalDateTime();
+            CommentModel newComment = CommentModel.builder()
+                    .content(commentContent)
+                    .createdAt(localDateTime)
+                    .user(userModelDefault)
+                    .post(post)
+                    .build();
+            mediaService.saveComment(newComment);
+            return "redirect:newsfeed";
+        }else {
+            UserModel userModel = mapper.convertUserEntitytoModel(userEntity);
+            PostModel post = mediaService.findPostById(postId);
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            LocalDateTime localDateTime = timestamp.toLocalDateTime();
+            CommentModel newComment = CommentModel.builder()
+                    .content(commentContent)
+                    .createdAt(localDateTime)
+                    .user(userModel)
+                    .post(post)
+                    .build();
+            mediaService.saveComment(newComment);
+            return "redirect:newsfeed";
+        }
     }
 
     @PostMapping("/post")
