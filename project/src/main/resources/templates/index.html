@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/main.css" type="text/css" />
   </head>
   <body>
+  <header th:insert="~{fragments/navbar :: nav}"></header>
     <main class="container p-0 d-flex flex-row">
       <section id="left-side">
         <img
@@ -31,16 +32,16 @@
 
           <!--          login-->
 
-          <form th:action="@{/main/login}" method="post" id="login-form">
+          <form th:action="@{/social/login}" method="post" id="login-form">
             <div class="form-floating m-2">
               <input
                 type="text"
-                name="username"
+                name="email"
                 class="form-control"
-                id="username"
+                id="email"
                 placeholder=""
               />
-              <label for="username">Username</label>
+              <label for="email">E-Mail</label>
             </div>
             <div class="form-floating m-2">
               <input
@@ -82,7 +83,7 @@
           </div>
 
           <form
-            th:action="@{/register}"
+            th:action="@{/social/register}"
             th:object="${userModel}"
             method="post"
             id="register-form"
