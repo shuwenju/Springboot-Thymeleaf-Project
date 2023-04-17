@@ -62,16 +62,17 @@ public class DemoController {
         public String register(@ModelAttribute("userModel") @Valid UserModel userModel, BindingResult result, Model model) {
             if (result.hasErrors()) {
 //                model.addAttribute("registrationError");
-                return "register";
+                return "redirect:/social/register";
             }else {
 
                 UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
                 userService.save(userEntity);
+                return "redirect:/social/login";
             }
 
 //            model.addAttribute("successMessage", "Registration successful. You can log in now.");
 //            model.addAttribute("userModel", new UserModel());
-            return "login";
+
 
         }
 
@@ -160,4 +161,12 @@ public class DemoController {
         mediaService.savePost(newPost);
         return "redirect:newsfeed";
     }
+
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
 }
