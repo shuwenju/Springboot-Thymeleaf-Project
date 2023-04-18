@@ -10,10 +10,9 @@ import lombok.*;
 @Builder
 @ToString
 public class LoginFormModel {
-    @Email(message = "Please enter a valid email address")
+    @Email
     private String email;
 
-    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
 
 }

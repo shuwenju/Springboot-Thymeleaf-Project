@@ -6,33 +6,119 @@
     <meta charset="UTF-8"/>
     <title>Login Page</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossorigin="anonymous">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
+    <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"
+    ></script>
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Login</h1>
-    <hr>
 
-    <form th:action="@{/social/login}" method="post" th:object="${loginForm}">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" required>
-            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>
-        </div>
+    <main class="container p-0 d-flex flex-row">
+        <section id="left-side">
+            <img
+                    src="/static/images/pexels-jaime-reimer-2662116.jpg"
+                    alt="main-image"
+                    width="100%"
+                    height="100%"
+            />
+        </section>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}" required>
-            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>
-        </div>
+        <!--    LOGIN     -->
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <a href="/social/register" class="btn btn-link">Register</a>
-        <div th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></div>
-    </form>
-</div>
+
+        <section class="container col-xl-4 col-lg-6" id="right-side">
+            <div class="container" id="form-container-login">
+                <div class="form-header d-flex justify-content-center m-3">
+                    <h2>Login</h2>
+                </div>
+
+                <form th:action="@{/social/login}" method="post" id="login-form" th:object="${userModel}">
+                    <div class="form-floating m-2">
+                        <input
+                                type="text"
+                                name="email"
+                                class="form-control"
+                                id="email"
+                                placeholder=""
+                        />
+                        <span class="text-danger" th:errors="*{email}"></span>
+                        <label for="email">E-Mail</label>
+                    </div>
+                    <div class="form-floating m-2">
+                        <input
+                                type="password"
+                                name="password"
+                                class="form-control"
+                                id="password"
+                                placeholder=""
+                        />
+                        <span class="text-danger" th:errors="*{password}"></span>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="row d-flex justify-content-center p-3">
+                        <button type="submit" class="btn-lg btn-primary shadow-none">
+                            Login
+                        </button>
+                    </div>
+                    <div class="button-changes">
+                        <a
+                                class="disable-link"
+                                href="#"
+                                onclick="#"
+                                id="login-button-login"
+                        >Login</a
+                        >
+                        <small>|</small>
+                        <a
+                                class=""
+                                href="@{/social}"
+                                id="register-button-login"
+                        >Register</a
+                        >
+                    </div>
+                </form>
+            </div>
+
+
+        </section>
+    </main>
+
+
+<!--<div class="container mt-5">-->
+<!--    <h1>Login</h1>-->
+<!--    <hr>-->
+
+<!--    <form th:action="@{/social/login}" method="post" th:object="${loginForm}">-->
+<!--        <div class="form-group">-->
+<!--            <label for="email">Email</label>-->
+<!--            <input type="email" class="form-control" id="email" th:field="*{email}" required>-->
+<!--            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="password">Password</label>-->
+<!--            <input type="password" class="form-control" id="password" th:field="*{password}" required>-->
+<!--            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger"></div>-->
+<!--        </div>-->
+
+<!--        <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--        <a href="/social/register" class="btn btn-link">Register</a>-->
+<!--        <div th:if="${errorMessage}" class="text-danger" th:text="${errorMessage}"></div>-->
+<!--    </form>-->
+<!--</div>-->
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
