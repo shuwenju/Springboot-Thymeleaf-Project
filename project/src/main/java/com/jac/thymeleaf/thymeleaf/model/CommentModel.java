@@ -7,6 +7,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author Shuwen Ju
@@ -23,4 +24,9 @@ public class CommentModel {
     private LocalDateTime createdAt;
     private UserModel user;
     private PostModel post;
+    public String getFormattedDateTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
+        return createdAt.format(formatter);
+    }
+
 }

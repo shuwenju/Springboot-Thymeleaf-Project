@@ -23,12 +23,13 @@ public class PostModel {
     @Size(min = 2, max = 255)
     private String content;
     private LocalDateTime createdAt;
-    private String formattedDateTime;
-    private UserModel user;
-//    private List<CommentModel> comments;
 
-    public void formatCreatedAt(LocalDateTime createdAt) {
+    private UserModel user;
+
+
+
+    public String getFormattedDateTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mma");
-        formattedDateTime = createdAt.format(formatter);
+        return createdAt.format(formatter);
     }
 }

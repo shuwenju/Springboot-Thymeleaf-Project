@@ -145,39 +145,21 @@ public class DemoController {
         HttpSession session = request.getSession();
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
         if (userEntity == null) {
-            UserEntity defaultUser = UserEntity.builder()
-                    .id(-1L)
-                    .email("default@mail.com")
-                    .firstName("Passenger")
-                    .lastName("Account")
-                    .username("Passenger")
-                    .sex("/images/default-profile.jpeg").build();
-            UserModel userModelDefault = mapper.convertUserEntitytoModel(defaultUser);
-            PostModel post = mediaService.findPostById(postId);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            LocalDateTime localDateTime = timestamp.toLocalDateTime();
-            CommentModel newComment = CommentModel.builder()
-                    .content(commentContent)
-                    .createdAt(localDateTime)
-                    .user(userModelDefault)
-                    .post(post)
-                    .build();
-            mediaService.saveComment(newComment);
-            return "redirect:newsfeed";
-        }else {
-            UserModel userModel = mapper.convertUserEntitytoModel(userEntity);
-            PostModel post = mediaService.findPostById(postId);
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            LocalDateTime localDateTime = timestamp.toLocalDateTime();
-            CommentModel newComment = CommentModel.builder()
-                    .content(commentContent)
-                    .createdAt(localDateTime)
-                    .user(userModel)
-                    .post(post)
-                    .build();
-            mediaService.saveComment(newComment);
-            return "redirect:newsfeed";
+            return "redirect:/social"; // Redirect to the index page
         }
+        UserModel userModel = mapper.convertUserEntitytoModel(userEntity);
+        PostModel post = mediaService.findPostById(postId);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        LocalDateTime localDateTime = timestamp.toLocalDateTime();
+        CommentModel newComment = CommentModel.builder()
+                .content(commentContent)
+                .createdAt(localDateTime)
+                .user(userModel)
+                .post(post)
+                .build();
+        mediaService.saveComment(newComment);
+        return "redirect:newsfeed";
+
     }
 
     @PostMapping("/post")
@@ -185,6 +167,9 @@ public class DemoController {
                            HttpServletRequest request){
         HttpSession session = request.getSession();
         UserEntity userEntity = (UserEntity) session.getAttribute("user");
+        if (userEntity == null) {
+            return "redirect:/social"; // Redirect to the index page
+        }
         UserModel user = mapper.convertUserEntitytoModel(userEntity);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LocalDateTime localDateTime = timestamp.toLocalDateTime();
