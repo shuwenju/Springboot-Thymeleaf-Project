@@ -55,47 +55,55 @@ public class DemoController {
         @GetMapping("/register")
         public String showRegistrationForm(Model model) {
             model.addAttribute("userModel", new UserModel());
-            return "register";
+            return "index";
         }
 
         @PostMapping("/register")
         public String register(@ModelAttribute("userModel") @Valid UserModel userModel, BindingResult result, Model model) {
             if (result.hasErrors()) {
-                return "register";
-            }else {
-
-                UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
-                userService.save(userEntity);
+                return "index"; //return "redirect:/social"; this doesn't display the error messages TODO need to display error messages
             }
-            return "index";
+
+            // Check if the email already exists in the database
+            Optional<UserEntity> existingUser = userRepository.findByEmail(userModel.getEmail());
+            if (existingUser != null) {
+                result.rejectValue("email", "error.email", "This email is already taken.");
+                return "index";
+            }
+
+
+            UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
+            userService.save(userEntity);
+
+            return "redirect:/social"; //TODO need to redirect to login form
 
         }
 
         @GetMapping("/login")
         public String showLoginPage(Model model) {
             model.addAttribute("loginForm", new LoginFormModel());
-            return "login";
+            return "redirect:/social"; //TODO need to redirect to login form
         }
 
         @PostMapping("/login")
         public String processLoginForm(@Valid @ModelAttribute("loginForm") LoginFormModel loginForm,
                                        BindingResult bindingResult, Model model, HttpServletRequest request) {
             if (bindingResult.hasErrors()) {
-                return "login";
+                return "redirect:/social"; //TODO need to redirect to login form and display error messages
             }
 
             Optional<UserEntity> optionalUser = userRepository.findByEmail(loginForm.getEmail());
 
             if (!optionalUser.isPresent()) {
                 model.addAttribute("errorMessage", "Invalid email or password");
-                return "login";
+                return "redirect:/social"; //TODO need to redirect to login form
             }
 
             UserEntity user = optionalUser.get();
 
             if (!user.getPassword().equals(loginForm.getPassword())) {
                 model.addAttribute("errorMessage", "Invalid email or password");
-                return "login";
+                return "redirect:/social"; //TODO need to redirect to login form
             }
 
             // Login successful, set user in session and redirect to dashboard

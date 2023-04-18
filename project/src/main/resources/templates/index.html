@@ -12,6 +12,16 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="css/main.css" type="text/css" />
+    <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <main class="container p-0 d-flex flex-row">
@@ -23,13 +33,15 @@
           height="100%"
         />
       </section>
+
+      <!--    LOGIN     -->
+
+
       <section class="container col-xl-4 col-lg-6" id="right-side">
-        <div class="container" id="form-container-login">
+        <div class="container disable-section" id="form-container-login">
           <div class="form-header d-flex justify-content-center m-3">
             <h2>Login</h2>
           </div>
-
-          <!--          login-->
 
           <form th:action="@{/social/login}" method="post" id="login-form">
             <div class="form-floating m-2">
@@ -76,7 +88,10 @@
             </div>
           </form>
         </div>
-        <div class="container disable-section" id="form-container-register">
+
+        <!--    REGISTER    -->
+
+        <div class="container" id="form-container-register">
           <div class="form-header d-flex justify-content-center m-3">
             <h2>Register</h2>
           </div>
@@ -95,6 +110,8 @@
                 id="register-username"
                 placeholder=""
                 required
+                pattern="^[a-zA-Z0-9._-]{3,16}$"
+                minlength="3" maxlength="16"
               />
               <label for="register-username">Username</label>
               <span class="text-danger" th:errors="*{username}"></span>
@@ -107,6 +124,7 @@
                 id="register-email"
                 placeholder=""
                 required
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
               />
               <label for="register-email">Email</label>
               <span class="text-danger" th:errors="*{email}"></span>
@@ -118,7 +136,9 @@
                 class="form-control"
                 id="register-password"
                 placeholder=""
+                minlength="8" maxlength="16"
                 required
+
               />
               <label for="register-password">Password</label>
               <span class="text-danger" th:errors="*{password}"></span>
@@ -131,6 +151,9 @@
                 id="register-firstName"
                 placeholder=""
                 required
+                pattern="[A-Za-z]+"
+                minlength="2"
+                maxlength="30"
               />
               <label for="register-firstName">First Name</label>
               <span class="text-danger" th:errors="*{firstName}"></span>
@@ -143,10 +166,30 @@
                 id="register-lastName"
                 placeholder=""
                 required
+                pattern="^[A-Za-z]+([\\s]?[A-Za-z]+)*$"
+                minlength="2"
+                maxlength="30"
               />
               <label for="register-lastName">Last Name</label>
               <span class="text-danger" th:errors="*{lastName}"></span>
             </div>
+
+            <div class="form-group">
+              <label>Sex</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="male" name="sex" th:value="MALE" th:checked="true">
+                <label class="form-check-label" for="male">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" id="female" name="sex" th:value="FEMALE">
+                <label class="form-check-label" for="female">
+                  Female
+                </label>
+              </div>
+            </div>
+
             <div class="row d-flex justify-content-center p-3">
               <button type="submit" class="btn-lg btn-primary shadow-none">
                 Register
@@ -175,16 +218,7 @@
       </section>
     </main>
 <!--    <footer th:insert="~{fragments/footer :: footer}"></footer>-->
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-      crossorigin="anonymous"
-    ></script>
+
     <script src="js/main.js" defer></script>
   </body>
 </html>

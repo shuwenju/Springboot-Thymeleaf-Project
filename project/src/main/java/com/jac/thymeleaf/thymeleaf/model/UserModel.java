@@ -22,21 +22,21 @@ import java.util.List;
 @ToString
 public class UserModel {
     private Long id;
-    @Size(min = 5, max = 15, message = "Username must be between 2 and 15 characters")
+    @Size(min = 3, max = 16, message = "Username must be between 3 and 16 characters")
     private String username;
 
-    @Pattern(regexp = "^[^@]*@[^@]*$", message = "E-mail invalid")
+    @Pattern(regexp = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", message = "E-mail invalid")
     private String email;
 
-    @Size(min = 4, max = 12, message = "Password must be between 4 and 12 characters")
+    @Size(min = 8, max = 16, message = "Password must be between 8 and 16 characters")
     private String password;
 
-    @Size(min = 2, max = 12, message = "First name must be between 2 and 12 characters")
+    @Size(min = 2, max =30, message = "First name must be between 2 and 30 characters")
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters in names")
     private String firstName;
 
-    @Size(min = 4, max = 15, message = "Last name must be between 4 and 15 characters")
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "Only letters in names")
+    @Size(min = 2, max = 30, message = "Last name must be between 4 and 15 characters")
+    @Pattern(regexp = "^[A-Za-z]+([\\\\s]?[A-Za-z]+)*$", message = "Only letters in names")
     private String lastName;
 
     private String sex;
