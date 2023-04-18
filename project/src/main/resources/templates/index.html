@@ -110,7 +110,6 @@
                 id="register-username"
                 placeholder=""
                 required
-                pattern="^[a-zA-Z0-9._-]{3,16}$"
                 minlength="3" maxlength="16"
               />
               <label for="register-username">Username</label>
@@ -124,7 +123,6 @@
                 id="register-email"
                 placeholder=""
                 required
-                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
               />
               <label for="register-email">Email</label>
               <span class="text-danger" th:errors="*{email}"></span>
@@ -136,7 +134,6 @@
                 class="form-control"
                 id="register-password"
                 placeholder=""
-                minlength="8" maxlength="16"
                 required
 
               />
@@ -151,9 +148,6 @@
                 id="register-firstName"
                 placeholder=""
                 required
-                pattern="[A-Za-z]+"
-                minlength="2"
-                maxlength="30"
               />
               <label for="register-firstName">First Name</label>
               <span class="text-danger" th:errors="*{firstName}"></span>
@@ -166,9 +160,6 @@
                 id="register-lastName"
                 placeholder=""
                 required
-                pattern="^[A-Za-z]+([\\s]?[A-Za-z]+)*$"
-                minlength="2"
-                maxlength="30"
               />
               <label for="register-lastName">Last Name</label>
               <span class="text-danger" th:errors="*{lastName}"></span>
