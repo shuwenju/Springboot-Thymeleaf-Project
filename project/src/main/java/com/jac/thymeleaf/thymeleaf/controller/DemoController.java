@@ -67,19 +67,18 @@ public class DemoController {
             // Check if the email already exists in the database
             Optional<UserEntity> existingUser = userRepository.findByEmail(userModel.getEmail());
             Optional<UserEntity> existingUser2 = userRepository.findByUsername(userModel.getUsername());
-            if (existingUser.isPresent() && existingUser2.isPresent()) {
-                result.rejectValue("email", "error.email", "This email is already taken.");
-                result.rejectValue("username", "error.username", "This username is already taken.");
+            boolean emailTaken = existingUser.isPresent();
+            boolean usernameTaken = existingUser2.isPresent();
+
+            if (emailTaken || usernameTaken) {
+                if (emailTaken) {
+                    result.rejectValue("email", "error.email", "This email is already taken.");
+                }
+                if (usernameTaken) {
+                    result.rejectValue("username", "error.username", "This username is already taken.");
+                }
                 return "register";
             }
-//
-//            // Check if the username already exists in the database
-//
-//            if (existingUser2.isPresent()) {
-//
-//                return "register";
-//            }
-
 
             UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
             userService.save(userEntity);
