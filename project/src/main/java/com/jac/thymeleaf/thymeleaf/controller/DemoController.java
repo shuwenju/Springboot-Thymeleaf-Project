@@ -49,6 +49,7 @@ public class DemoController {
         @GetMapping
             public String index(Model model) {
             model.addAttribute("userModel", new UserModel());
+
             return "index";
         }
 
@@ -68,6 +69,13 @@ public class DemoController {
             Optional<UserEntity> existingUser = userRepository.findByEmail(userModel.getEmail());
             if (existingUser != null) {
                 result.rejectValue("email", "error.email", "This email is already taken.");
+                return "index";
+            }
+
+            // Check if the username already exists in the database
+            Optional<UserEntity> existingUser2 = userRepository.findByUsername(userModel.getUsername());
+            if (existingUser2 != null) {
+                result.rejectValue("username", "error.username", "This username is already taken.");
                 return "index";
             }
 
