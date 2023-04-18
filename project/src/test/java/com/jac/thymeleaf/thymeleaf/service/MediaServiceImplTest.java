@@ -26,8 +26,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Shuwen Ju
@@ -260,6 +259,45 @@ public class MediaServiceImplTest {
         assertTrue(actualMsg.contains(expectedMsg));
     }
 
+    @Test
+    public void savePostTest(){
+        UserEntity user = UserEntity.builder()
+                .id(1L)
+                .email("user@mail.com")
+                .firstName("usertest")
+                .lastName("userLname")
+                .password("1234512345")
+                .username("usertestname")
+                .sex("/images/default-profile.jpeg").build();
+        UserModel userModel = UserModel.builder()
+                .id(1L)
+                .email("user@mail.com")
+                .firstName("usertest")
+                .lastName("userLname")
+                .password("1234512345")
+                .username("usertestname")
+                .sex("/images/default-profile.jpeg").build();
+        PostEntity postEntity =PostEntity.builder()
+                .id(1L)
+                .content("1st post")
+                .createdAt(LocalDateTime.now())
+                .user(user).build();
+        PostModel postModel = PostModel.builder()
+                .id(1L)
+                .content("1st post")
+                .createdAt(LocalDateTime.now())
+                .user(userModel).build();
 
+        when(mapperHelper.convertPostModeltoPostEntity(postModel)).thenReturn(postEntity);
+        when(userRepository.save(user)).thenReturn(user);
+        when(postRepository.save(postEntity)).thenReturn(postEntity);
+
+        //call
+        target.savePost(postModel);
+
+        //verify
+        verify(userRepository, times(1)).save(user);
+        verify(postRepository, times(1)).save(postEntity);
+    }
 
 }
