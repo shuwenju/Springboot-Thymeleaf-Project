@@ -28,6 +28,7 @@ import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/social")
@@ -211,15 +212,27 @@ public class DemoController {
 
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session) {
-        UserEntity user = (UserEntity) session.getAttribute("user");
+        UserEntity userEntity = (UserEntity) session.getAttribute("user");
 
-        if (user == null) {
+        if (userEntity == null) {
             return "redirect:/social"; // Redirect to the index page if user is not logged in
         }
 
+        UserModel user = mapper.convertUserEntitytoModel(userEntity);
         model.addAttribute("user", user);
-        List<PostEntity> posts = postRepository.findAllByUserId(user.getId()).orElse(new ArrayList<>());
-        model.addAttribute("posts", posts);
+        List<PostModel> userPosts = mediaService.getAllPostsByUser(user);
+        model.addAttribute("userPosts", userPosts);
+
+        Map<Long, List<CommentModel>> commentsByPostId = new HashMap<>();
+        int totalComments = 0;
+        for (PostModel post : userPosts) {
+            List<CommentModel> postComments = mediaService.getAllCommentByPostId(post.getId());
+            commentsByPostId.put(post.getId(), postComments);
+            totalComments += postComments.size();
+        }
+        model.addAttribute("commentsByPost", commentsByPostId);
+        model.addAttribute("totalComments", totalComments);
+
         return "profile";
     }
 

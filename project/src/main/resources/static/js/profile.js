@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
       saveBtn.classList.add("d-none");
       editBtn.classList.remove("d-none");
 
-      showAlert("Data Saved");
+      showAlert("Data Saved!");
     } else {
       alert('An error occurred while saving the user data.');
     }
@@ -47,9 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function showAlert(message) {
     const alertContainer = document.getElementById("alert-container");
     const alertHTML = `
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div class="alert alert-success fade show" role="alert">
         ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     `;
     alertContainer.innerHTML = alertHTML;
@@ -63,3 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2500);
   }
 });
+
+    function toggleComments(postId) {
+        console.log("toggleComments called for post ID:", postId);
+        let comments = document.getElementById(postId);
+        if (comments.style.display === "none") {
+            comments.style.display = "block";
+        } else {
+            comments.style.display = "none";
+        }
+    }

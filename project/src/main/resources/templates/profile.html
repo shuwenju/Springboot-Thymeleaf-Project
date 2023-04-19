@@ -6,19 +6,38 @@
     <meta charset="UTF-8">
     <title>Profile Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<!--    <link rel="stylesheet" href="profile.css" type="text/css">-->
+    <link rel="stylesheet" href="/static/css/profile.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-HRJi0kgivkrX9Wxdxv1hSLIX1qf4iFshA4+GMUDw3z44T3qIix9GwpNjmOv7sO6MJSDZ2pf/8ywfgsU6wIu0cQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://kit.fontawesome.com/242b896a20.js" crossorigin="anonymous"></script>
+    <style>
+            a {
+    text-decoration: none !important
+    }
+    .profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    }
+    .tweet {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    }
+    </style>
+
 </head>
 <body>
 <header th:insert="~{fragments/navbar :: nav}"></header>
 
 <main>
-    <div id="alert-container"></div>
     <div class="container-fluid bg-light px-md-5">
+        <div id="alert-container" class="col-2 m-auto"></div>
         <div class="row justify-content-center align-items-center p-3">
             <div class="col-2 d-flex justify-content-center align-items-center">
                 <img id="profileImage" class="rounded-circle bg-secondary" style="width: 100px; height: 100px;" alt=""/>
             </div>
-            <form class="col-8" id="profileForm" th:action="@{/social/profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+            <form class="col-3 mt-5 mb-5" id="profileForm" th:action="@{/social/profile}" th:object="${user}" method="post" enctype="multipart/form-data">
                 <div class="form-group row">
                     <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
                     <div class="col-sm-9">
@@ -56,6 +75,60 @@
          </div>
        </div>
     </main>
+<section class="container col-sm-8 col-8-md col-l-4 col-xl-6 mt-4">
+    <div class="header-posts">
+        <h1 class="d-flex justify-content-center">My posts</h1>
+        <br>
+    </div>
+
+    <div class="row justify-content-center ">
+        <div th:each="post : ${userPosts}" class="col-sm-8">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="media">
+                        <img th:src="${post.user.sex}" class="align-self-start mr-3 profile-image" alt="profile">
+                        <div class="media-body">
+                            <h5 class="mt-0" th:text="${post.user.username}"></h5>
+
+                            <div class="tweet" th:text="${post.content}"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end" style="font-size: 12px;">
+                        <span class="text-muted" th:text="${post.getFormattedDateTime()}">Timestamp</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <i class="far fa-comment" th:attr="onclick=|toggleComments('${post.id}')|" ></i> <span th:text="${commentsByPost.get(post.id).size()}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div th:id="${post.id}" class="card mb-4" style="display: none; width:100%;">
+                <form th:action="@{/social/addcomments}" method="post" id="comment-form" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+                    <div class="form-group">
+                        <textarea class="form-control" id="comment-input" rows="3" placeholder="Write a comment" th:name="content"></textarea>
+                    </div>
+                    <input type="hidden" th:name="postId" th:value="${post.id}">
+                    <!--            <input type="hidden" th:name="userId" th:value="${loggedInUser.id}">-->
+                    <button type="submit" class="btn btn-primary mb-3" >Send</button>
+                </form>
+                <div class="card-body">
+                    <div th:each="comment : ${commentsByPost.get(post.id)}" class="media" style="margin-bottom: 20px;">
+                        <img th:src="${comment.user.sex}" class="mr-3 rounded-circle" alt="Pic" style="width:32px;height:32px;">
+                        <div class="media-body">
+                            <h6 class="mt-0" style="font-size: 12px;" th:text="${comment.user.username}"></h6>
+                            <span th:text="${comment.content}"></span>
+                            <span class="text-muted float-right" style="font-size: 12px;" th:text="${comment.getFormattedDateTime()}">Timestamp</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

@@ -7,6 +7,7 @@ import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
+import com.jac.thymeleaf.thymeleaf.model.UserModel;
 import com.jac.thymeleaf.thymeleaf.repository.CommentRepository;
 import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
 import com.jac.thymeleaf.thymeleaf.repository.UserRepository;
@@ -73,6 +74,16 @@ public class MediaServiceImpl implements MediaService
             userRepository.save(entity.getUser());
             postRepository.save(entity.getPost());
             commentRepository.save(entity);
+        }
+
+        @Override
+        public List<PostModel> getAllPostsByUser(UserModel user) {
+            List<PostEntity> postEntities = postRepository.findAllByUserId(user.getId()).orElse(new ArrayList<>());
+            List<PostModel> postModels = new ArrayList<>();
+            for (PostEntity postEntity : postEntities) {
+                postModels.add(mapperHelper.convertPostEntityToPostModel(postEntity));
+            }
+            return postModels;
         }
 
 
