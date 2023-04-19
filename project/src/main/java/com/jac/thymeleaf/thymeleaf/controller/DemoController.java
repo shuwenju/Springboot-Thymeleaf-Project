@@ -30,12 +30,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 @Controller
 @RequestMapping("/social")
 public class DemoController {
         private final UserService userService;
 
-
+        private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         private final MediaService mediaService;
         private final MapperHelper mapper;
         private final PostRepository postRepository;
@@ -66,7 +68,7 @@ public class DemoController {
         @PostMapping("/register")
         public String register(@ModelAttribute("userModel") @Valid UserModel userModel, BindingResult result, Model model) {
             if (result.hasErrors()) {
-                return "index"; //return "redirect:/social"; this doesn't display the error messages TODO need to display error messages
+                return "index";
             }
 
             // Check if the email already exists in the database
@@ -85,37 +87,48 @@ public class DemoController {
 
 
             UserEntity userEntity = mapper.convertUserModeltoEntity(userModel);
+            String encodedPassword = passwordEncoder.encode(userModel.getPassword());
+            userEntity.setPassword(encodedPassword);
             userService.save(userEntity);
 
-            return "login"; //TODO need to redirect to login form
+            return "login";
 
         }
 
         @GetMapping("/login")
         public String showLoginPage(Model model) {
             model.addAttribute("userModel", new UserModel());
-            return "login"; //TODO need to redirect to login form
+            return "login";
         }
 
         @PostMapping("/login")
         public String processLoginForm(@Valid @ModelAttribute("userModel") UserModel userModel,
                                        BindingResult bindingResult, Model model, HttpServletRequest request) {
             if (bindingResult.hasErrors()) {
-                return "login"; //TODO need to redirect to login form and display error messages
+                return "login";
             }
 
             Optional<UserEntity> optionalUser = userRepository.findByEmail(userModel.getEmail());
 
             if (!optionalUser.isPresent()) {
                 bindingResult.rejectValue("email", "error.email", "Invalid email.");
-                return "login"; //TODO need to redirect to login form
+                return "login";
             }
 
             UserEntity user = optionalUser.get();
 
-            if (!user.getPassword().equals(userModel.getPassword())) {
+//            if (!user.getPassword().equals(userModel.getPassword())) {
+//                bindingResult.rejectValue("password", "error.password", "Wrong password.");
+//                return "login";
+//            }
+
+
+            // Use BCryptPasswordEncoder to compare hashed passwords
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(userModel.getPassword());
+            if (!passwordEncoder.matches(userModel.getPassword(), user.getPassword())) {
                 bindingResult.rejectValue("password", "error.password", "Wrong password.");
-                return "login"; //TODO need to redirect to login form
+                return "login";
             }
 
             // Login successful, set user in session and redirect to dashboard
