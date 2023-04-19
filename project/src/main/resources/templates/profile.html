@@ -35,7 +35,7 @@
         <div id="alert-container" class="col-2 m-auto"></div>
         <div class="row justify-content-center align-items-center p-3">
             <div class="col-2 d-flex justify-content-center align-items-center">
-                <img id="profileImage" class="rounded-circle bg-secondary" style="width: 100px; height: 100px;" alt=""/>
+                <img id="profileImage" class="rounded-circle bg-secondary" style="width: 100px; height: 100px;" th:src="${session.sex}" alt=""/>
             </div>
             <form class="col-3 mt-5 mb-5" id="profileForm" th:action="@{/social/profile}" th:object="${user}" method="post" enctype="multipart/form-data">
                 <div class="form-group row">

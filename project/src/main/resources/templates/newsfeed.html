@@ -35,6 +35,7 @@
             <div class="card-body">
                 <form th:action="@{/social/post}" method="post">
                     <div class="media mb-3">
+<!--                        <img src="/static/images/default-profile.jpeg" class="align-self-start mr-3 profile-image" alt="profile">-->
                         <img th:src="${session.sex}" class="align-self-start mr-3 profile-image" alt="profile">
                         <div class="media-body">
                             <h5 class="mt-0" th:text="${session.username}"></h5>
