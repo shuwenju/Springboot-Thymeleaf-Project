@@ -244,6 +244,10 @@ public class DemoController {
 
         // Save the updated user information to the database
         userRepository.save(user);
+        session.setAttribute("fname", user.getFirstName());
+        session.setAttribute("lname", user.getLastName());
+        session.setAttribute("username", user.getUsername());
+        session.setAttribute("email", user.getEmail());
 
         return "redirect:/social/profile";
     }
