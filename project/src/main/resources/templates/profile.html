@@ -1,62 +1,65 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Landing Page</title>
+    <title>Profile Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="landingpage.css" type="text/css">
+<!--    <link rel="stylesheet" href="profile.css" type="text/css">-->
 </head>
 <body>
-<header th:insert="~{fragments/navbar :: navbar}"></header>
-   
-    <main>
-      <div class="container-fluid bg-light px-md-5">
-         <div class="row justify-content-center align-items-center p-3">
-           <div class="col-2 d-flex justify-content-center align-items-center">
-             <div class="rounded-circle bg-secondary" style="width: 100px; height: 100px;"></div>
-           </div>
-           <div class="col-8">
-             <div class="form-group row">
-               <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
-               <div class="col-sm-9">
-                 <p class="form-control-plaintext" id="firstName" th:text="${firstName}">John</p>
-               </div>
-             </div>
-             <div class="form-group row">
-               <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
-               <div class="col-sm-9">
-                 <p class="form-control-plaintext" id="lastName" th:text="${lastName}">Doe</p>
-               </div>
-             </div>
-             <div class="form-group row">
-               <label for="username" class="col-sm-3 col-form-label">Username</label>
-               <div class="col-sm-9">
-                 <p class="form-control-plaintext" id="username" th:text="${username}">johndoe</p>
-               </div>
-             </div>
-             <div class="form-group row">
-               <label for="birthday" class="col-sm-3 col-form-label">Birthday</label>
-               <div class="col-sm-9">
-                 <p class="form-control-plaintext" id="birthday" th:text="${birthday}">1990-01-01</p>
-               </div>
-             </div>
-             <div class="form-group row">
-               <label for="city" class="col-sm-3 col-form-label">City</label>
-               <div class="col-sm-9">
-                 <p class="form-control-plaintext" id="city" th:text="${city}">New York</p>
-               </div>
-             </div>
-           </div>
-           <div class="col-2 d-flex justify-content-center align-items-center">
-             <button id="editBtn" class="btn btn-secondary">Edit</button>
-             <button id="saveBtn" class="btn btn-success d-none">Save</button>
-           </div>
+<header th:insert="~{fragments/navbar :: nav}"></header>
+
+<main>
+    <div id="alert-container"></div>
+    <div class="container-fluid bg-light px-md-5">
+        <div class="row justify-content-center align-items-center p-3">
+            <div class="col-2 d-flex justify-content-center align-items-center">
+                <img id="profileImage" class="rounded-circle bg-secondary" style="width: 100px; height: 100px;" alt=""/>
+            </div>
+            <form class="col-8" id="profileForm" th:action="@{/social/profile}" th:object="${user}" method="post" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="firstName" th:field="*{firstName}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="username" class="col-sm-3 col-form-label">Username</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="username" th:field="*{username}" disabled>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="email" th:field="*{email}" disabled>
+                    </div>
+                </div>
+<!--                <div class="form-group row">-->
+<!--                    <label for="profileImageInput" class="col-sm-3 col-form-label">Profile Image</label>-->
+<!--                    <div class="col-sm-9">-->
+<!--                        <input type="file" class="form-control-file" id="profileImageInput" name="profileImage" accept="image/*" disabled>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <button id="editBtn" class="btn btn-secondary" type="button" value="edit">Edit</button>
+                <button id="saveBtn" class="btn btn-success d-none" type="submit" value="submit">Save</button>
+            </form>
+            </div>
          </div>
-       </div>                     
+       </div>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/static/js/profile.js" defer></script>
 </body>
 </html>

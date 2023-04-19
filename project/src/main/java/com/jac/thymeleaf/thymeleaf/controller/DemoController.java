@@ -1,12 +1,14 @@
 package com.jac.thymeleaf.thymeleaf.controller;
 
 import ch.qos.logback.core.model.conditional.ThenModel;
+import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
 import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
 import com.jac.thymeleaf.thymeleaf.model.LoginFormModel;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.model.UserModel;
+import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
 import com.jac.thymeleaf.thymeleaf.repository.UserRepository;
 import com.jac.thymeleaf.thymeleaf.service.MediaService;
 import com.jac.thymeleaf.thymeleaf.service.UserService;
@@ -20,13 +22,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/social")
@@ -36,14 +37,16 @@ public class DemoController {
 
         private final MediaService mediaService;
         private final MapperHelper mapper;
+        private final PostRepository postRepository;
 
         @Autowired
         private UserRepository userRepository;
         @Autowired
-        public DemoController(UserService userService, MediaService mediaService, MapperHelper mapper) {
+        public DemoController(UserService userService, MediaService mediaService, MapperHelper mapper, PostRepository postRepository) {
             this.userService = userService;
             this.mediaService = mediaService;
             this.mapper = mapper;
+            this.postRepository = postRepository;
         }
 
         @GetMapping
@@ -204,6 +207,45 @@ public class DemoController {
             session.invalidate();
         }
         return "redirect:/social";
+    }
+
+    @GetMapping("/profile")
+    public String profile(Model model, HttpSession session) {
+        UserEntity user = (UserEntity) session.getAttribute("user");
+
+        if (user == null) {
+            return "redirect:/social"; // Redirect to the index page if user is not logged in
+        }
+
+        model.addAttribute("user", user);
+        List<PostEntity> posts = postRepository.findAllByUserId(user.getId()).orElse(new ArrayList<>());
+        model.addAttribute("posts", posts);
+        return "profile";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@Valid UserModel userModel, BindingResult bindingResult, HttpSession session, Model model) {
+        if (bindingResult.hasErrors()) {
+            UserEntity user = (UserEntity) session.getAttribute("user");
+            model.addAttribute("user", user);
+            return "profile";
+        }
+
+        UserEntity user = (UserEntity) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/social"; // Redirect to the index page if user is not logged in
+        }
+
+        // Update user information
+        user.setUsername(userModel.getUsername());
+        user.setEmail(userModel.getEmail());
+        user.setFirstName(userModel.getFirstName());
+        user.setLastName(userModel.getLastName());
+
+        // Save the updated user information to the database
+        userRepository.save(user);
+
+        return "redirect:/social/profile";
     }
 }
 
