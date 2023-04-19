@@ -5,3 +5,13 @@ text-align: center;
 h2 {
 text-align: center;
 }
+
+body {
+  background-color: rgb(201, 245, 255); !important
+  min-height: 100vh;
+}
+
+main {
+background-color: rgb(201, 245, 255); !important
+}
+
