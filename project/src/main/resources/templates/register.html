@@ -5,59 +5,64 @@
 <head>
   <meta charset="UTF-8"/>
   <title>Registration Form</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css" />
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
 </head>
 <body>
-<div class="container">
-  <h1>Registration Form</h1>
-  <form method="post" th:action="@{/social/register}" th:object="${userModel}">
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
-      <span class="text-danger" th:errors="*{firstName}"></span>
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
-      <span class="text-danger" th:errors="*{lastName}"></span>
-    </div>
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" th:field="*{username}" required>
-      <span class="text-danger" th:errors="*{username}"></span>
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" th:field="*{email}" required>
-      <span class="text-danger" th:errors="*{email}"></span>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" th:field="*{password}" required>
-      <span class="text-danger" th:errors="*{password}"></span>
-    </div>
-    <div class="form-group">
-      <label>Sex</label>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="male" name="sex" th:value="MALE" th:checked="true">
-        <label class="form-check-label" for="male">
-          Male
-        </label>
+<main>
+  <div class="container">
+    <h1>Registration Form</h1>
+    <form method="post" th:action="@{/social/register}" th:object="${userModel}">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        <span class="text-danger" th:errors="*{firstName}"></span>
       </div>
-      <div class="form-check">
-        <input class="form-check-input" type="radio" id="female" name="sex" th:value="FEMALE">
-        <label class="form-check-label" for="female">
-          Female
-        </label>
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        <span class="text-danger" th:errors="*{lastName}"></span>
       </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Register</button>
-    <a href="/social/login" class="btn btn-link">Login</a>
-  </form>
-</div>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" th:field="*{username}" required>
+        <span class="text-danger" th:errors="*{username}"></span>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" th:field="*{email}" required>
+        <span class="text-danger" th:errors="*{email}"></span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" th:field="*{password}" required>
+        <span class="text-danger" th:errors="*{password}"></span>
+      </div>
+      <div class="form-group form-inline">
+        <label>Sex</label>
+        <br>
+        <div class="form-check d-inline-block">
+          <input class="form-check-input" type="radio" id="male" name="sex" th:value="MALE" th:checked="true">
+          <label class="form-check-label" for="male">
+            Male
+          </label>
+        </div>
+        <div class="form-check d-inline-block">
+          <input class="form-check-input" type="radio" id="female" name="sex" th:value="FEMALE">
+          <label class="form-check-label" for="female">
+            Female
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+      <a href="/social/login" class="btn btn-link">Login</a>
+    </form>
+  </div>
+</main>
+
 <!-- Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

@@ -11,7 +11,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/static/css/main.css" type="text/css" />
+    <link rel="stylesheet" th:href="@{/css/main.css}" type="text/css" />
     <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
             integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
@@ -26,12 +26,12 @@
   <body>
     <main class="container p-0 d-flex flex-row">
       <section id="left-side">
-        <img
-          src="/static/images/pexels-jaime-reimer-2662116.jpg"
-          alt="main-image"
-          width="100%"
-          height="100%"
-        />
+<!--        <img-->
+<!--          src="/static/images/pexels-jaime-reimer-2662116.jpg"-->
+<!--          alt="main-image"-->
+<!--          width="100%"-->
+<!--          height="100%"-->
+<!--        />-->
       </section>
 
       <!--    LOGIN     -->
@@ -163,16 +163,18 @@
               />
               <label for="register-lastName">Last Name</label>
               <span class="text-danger" th:errors="*{lastName}"></span>
-
-              <div class="form-group">
+            </div>
+            <div class="form-floating m-2">
+              <div class="form-group form-inline">
                 <label>Sex</label>
-                <div class="form-check">
+                <br>
+                <div class="form-check d-inline-block">
                   <input class="form-check-input" type="radio" id="male" name="sex" th:value="MALE" th:checked="true">
                   <label class="form-check-label" for="male">
                     Male
                   </label>
                 </div>
-                <div class="form-check">
+                <div class="form-check d-inline-block">
                   <input class="form-check-input" type="radio" id="female" name="sex" th:value="FEMALE">
                   <label class="form-check-label" for="female">
                     Female
