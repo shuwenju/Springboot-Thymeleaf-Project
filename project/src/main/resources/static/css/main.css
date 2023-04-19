@@ -1,15 +1,22 @@
 body {
   box-sizing: border-box;
+  min-height: 100vh;
+  background-color: rgb(201, 245, 255);
 }
 
 main {
   padding: 0;
-  height: 100vh;
+  min-height: 100vh;
   min-width: 100%;
+  background-color: rgb(201, 245, 255);
 }
 
 #left-side {
   padding: 0;
+  background-image: url('../images/pexels-jaime-reimer-2662116.jpg');
+  background-size: cover;
+  min-height: 60%;
+  min-width: 60%;
 }
 
 #right-side {
@@ -31,6 +38,7 @@ main {
   padding: 2rem;
   margin: 5rem;
 }
+
 
 .button-changes {
   display: flex;
