@@ -1,11 +1,8 @@
 package com.jac.thymeleaf.thymeleaf.controller;
 
-import ch.qos.logback.core.model.conditional.ThenModel;
-import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
 import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
 import com.jac.thymeleaf.thymeleaf.mapper.MapperHelper;
 import com.jac.thymeleaf.thymeleaf.model.CommentModel;
-import com.jac.thymeleaf.thymeleaf.model.LoginFormModel;
 import com.jac.thymeleaf.thymeleaf.model.PostModel;
 import com.jac.thymeleaf.thymeleaf.model.UserModel;
 import com.jac.thymeleaf.thymeleaf.repository.PostRepository;
@@ -13,7 +10,6 @@ import com.jac.thymeleaf.thymeleaf.repository.UserRepository;
 import com.jac.thymeleaf.thymeleaf.service.MediaService;
 import com.jac.thymeleaf.thymeleaf.service.UserService;
 
-import com.jac.thymeleaf.thymeleaf.view.CommentView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -22,13 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -116,11 +109,6 @@ public class DemoController {
             }
 
             UserEntity user = optionalUser.get();
-
-//            if (!user.getPassword().equals(userModel.getPassword())) {
-//                bindingResult.rejectValue("password", "error.password", "Wrong password.");
-//                return "login";
-//            }
 
 
             // Use BCryptPasswordEncoder to compare hashed passwords

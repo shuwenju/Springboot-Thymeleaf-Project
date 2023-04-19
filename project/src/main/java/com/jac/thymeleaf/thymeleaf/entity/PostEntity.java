@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 @Entity
 @Table(name = "posts")
@@ -26,8 +26,6 @@ public class PostEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-//    @OneToMany(mappedBy = "post")
-//    private List<CommentEntity> comments;
 
 
 }

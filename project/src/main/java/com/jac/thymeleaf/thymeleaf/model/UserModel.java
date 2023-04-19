@@ -1,10 +1,5 @@
 package com.jac.thymeleaf.thymeleaf.model;
 
-import com.jac.thymeleaf.thymeleaf.entity.CommentEntity;
-import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -40,6 +35,5 @@ public class UserModel {
     private String lastName;
 
     private String sex;
-//    private List<PostModel> posts;
-//    private List<CommentModel> comments;
+
 }

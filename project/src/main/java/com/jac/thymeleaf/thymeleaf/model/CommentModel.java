@@ -1,9 +1,5 @@
 package com.jac.thymeleaf.thymeleaf.model;
 
-import com.jac.thymeleaf.thymeleaf.entity.PostEntity;
-import com.jac.thymeleaf.thymeleaf.entity.UserEntity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDateTime;

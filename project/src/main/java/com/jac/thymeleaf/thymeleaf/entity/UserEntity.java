@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -26,11 +24,7 @@ public class UserEntity {
     private String lastName;
     private String sex;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<PostEntity> posts;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<CommentEntity> comments;
+
 
 
 }
